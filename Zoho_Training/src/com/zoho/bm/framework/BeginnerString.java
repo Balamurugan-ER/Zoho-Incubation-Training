@@ -1,10 +1,11 @@
 /**
  * 
  */
-package framework;
+package com.zoho.bm.framework;
 
+import java.util.*;
 /**
- * @author Balamurugan
+ * @author inc5
  *
  */
 public class BeginnerString
@@ -26,10 +27,11 @@ public class BeginnerString
 	private void stringCheck(String string) throws CustomException
 	{
 		isNull(string);
-		if(string.isEmpty())
-		{
-			throw new CustomException("Empty String Found");
-		}
+		String obj = Objects.requireNonNull(string, "Value is Empty");
+//		if(string.isEmpty())
+//		{
+//			throw new CustomException("Empty String Found");
+//		}
 	}
 	// returns the length of the string
 	// arg - String	
@@ -195,3 +197,4 @@ public class BeginnerString
 	}
 	
 }
+
