@@ -18,7 +18,7 @@ public class BstringBuilder {
 		{
 			Objects.requireNonNull(sbString, "Value should not be null");
 		}
-		catch(Exception e)
+		catch(NullPointerException e)
 		{
 			throw new CustomException("Null Value Found");
 		}
@@ -53,50 +53,58 @@ public class BstringBuilder {
 	public StringBuilder addString(StringBuilder sbString,int index,String string) throws CustomException
 	{
 		checkNull(string);
-		Utilities.isNumValidRange(index, 0, getsbLength(sbString));
+		Utilities.isNumValidRange(index, 0, getsbLength(sbString)); //TODO: index maximum range
 		return sbString.insert(index, string);
 	}
-	public void findDelimiter(StringBuilder sbString,char delimiter) throws CustomException
+	public int findDelimiter(StringBuilder sbString,char delimiter,boolean first) throws CustomException
 	{
 		checkNull(sbString);
-		int value;
-//		System.out.println();
-		System.out.println(sbString.toString().charAt(delimiter));
+		if(first)
+		{
+			return sbString.toString().indexOf(delimiter);
+		}
+		return sbString.toString().lastIndexOf(delimiter);
 	}
-	public StringBuilder deleteRange(StringBuilder sbString,int start,int end) throws CustomException
+	public void deleteRange(StringBuilder sbString,int start,int end) throws CustomException
 	{
 		int length = getsbLength(sbString);
 		Utilities.isNumValidRange(start, 0, length);
-		return sbString.delete(start, end);
+		sbString.delete(start, end);
 	}
 	public String[] sbStrToArray(StringBuilder sbString,String delimiter)
 	{
 		String string = Objects.toString(sbString);
-		return string.split(string);
+		return string.split(delimiter);
 	}
-	public StringBuilder sbConcat(StringBuilder sbString,char delimiter) throws CustomException
+	public StringBuilder sbConcat(StringBuilder sbString,String delimiter) throws CustomException
 	{
 		checkNull(sbString);
 		String[] array = sbStrToArray(sbString," ");
-		String concateString = "";
+		
+		StringBuilder concateString = createSBuilder();
 
 		for(int i = 0;i< array.length;i++)
 		{
-			concateString += array[i];
+			addString(concateString,array[i]);
 			if(i < array.length-1)
 			{
-				concateString +=delimiter;
+				addString(concateString,delimiter);
 			}
 		}
-
-		return createSBuilder(concateString);
+		return sbString=concateString;
 	}
-	public StringBuilder sbReplace(StringBuilder sbString,int start,int end) throws CustomException
+	//TODO debug unfinished
+	public StringBuilder sbReplace(StringBuilder sbString,int start,int end,String subString) throws CustomException
 	{
+		checkNull(subString);
 		int length = getsbLength(sbString);
 		Utilities.isNumValidRange(start, 0, length);
-		return sbString.replace(start, end, sbString.toString());
-
+		return sbString.replace(start, end, subString);
+	}
+	public StringBuilder sbReverse(StringBuilder sbString) throws CustomException
+	{
+		checkNull(sbString);
+		return sbString.reverse();
 	}
 
 
