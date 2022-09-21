@@ -3,13 +3,22 @@ import com.bm.util.*;
 public class ExtendedThread extends Thread
 {
 	private long milliSeconds;
+	private boolean flag;
 	public ExtendedThread(Runnable target,String name)
 	{
 		super(target,name);
+		setFlag(true);
 	}
 	public ExtendedThread(String name)
 	{
 		super(name);
+		setFlag(true);
+	}
+	public boolean getFlag() {
+		return flag;
+	}
+	public void setFlag(boolean flag) {
+		this.flag = flag;
 	}
 	public long getMilliSeconds() {
 		return milliSeconds;
@@ -20,19 +29,26 @@ public class ExtendedThread extends Thread
 	@Override
 	public void run()
 	{
-		System.out.println("ExtendedThread is Running ...");
-		try
+		
+		int count =0;
+		while(getFlag())
 		{
-			if(getMilliSeconds() != 0)
+			System.out.println("counter : "+count++);
+			try
 			{
-				makeSleep(getMilliSeconds());
-			}
-		} 
-		catch (CustomException e) 
-		{
+				if(getMilliSeconds() != 0)
+				{
+					makeSleep(getMilliSeconds());
+				}
+			} 
+			catch (CustomException e) 
+			{
 
-			e.printStackTrace();
+				e.printStackTrace();
+			}
 		}
+		
+		
 	}
 	public void makeSleep(long milliseconds) throws CustomException
 	{
