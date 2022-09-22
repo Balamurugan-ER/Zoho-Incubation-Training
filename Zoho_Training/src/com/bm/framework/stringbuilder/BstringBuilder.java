@@ -3,6 +3,7 @@
  */
 package com.bm.framework.stringbuilder;
 import com.bm.util.*;
+import com.bm.util.Utilities;
 import java.util.Objects;
 /**
  * @author inc5
@@ -52,7 +53,7 @@ public class BstringBuilder {
 	public StringBuilder addString(StringBuilder sbString,int index,String string) throws CustomException
 	{
 		checkNull(string);
-		Utilities.isNumValidRange(index, 0, getsbLength(sbString)); //TODO: index maximum range
+		Utilities.VALID.isNumValidRange(index, 0, getsbLength(sbString)); //TODO: index maximum range
 		return sbString.insert(index, string);
 	}
 	public int findDelimiter(StringBuilder sbString,char delimiter,boolean first) throws CustomException
@@ -67,7 +68,7 @@ public class BstringBuilder {
 	public void deleteRange(StringBuilder sbString,int start,int end) throws CustomException
 	{
 		int length = getsbLength(sbString);
-		Utilities.isNumValidRange(start, 0, length);
+		Utilities.VALID.isNumValidRange(start, 0, length);
 		sbString.delete(start, end);
 	}
 	public String[] sbStrToArray(StringBuilder sbString,String delimiter)
@@ -97,7 +98,7 @@ public class BstringBuilder {
 	{
 		checkNull(subString);
 		int length = getsbLength(sbString);
-		Utilities.isNumValidRange(start, 0, length);
+		Utilities.VALID.isNumValidRange(start, 0, length);
 		return sbString.replace(start, end, subString);
 	}
 	public StringBuilder sbReverse(StringBuilder sbString) throws CustomException

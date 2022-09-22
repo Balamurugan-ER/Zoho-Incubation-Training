@@ -162,8 +162,8 @@ public class TestBProgram {
 			{
 				// Even we call multiple time singleton won't create new object.
 				//Enum Singleton - Seriableable,Thread-safe,Reflection
-				CarSingleton carObj1 = CarSingleton.GET_INSTANCE;
-				CarSingleton carObj2 = CarSingleton.GET_INSTANCE;
+				CarSingleton carObj1 = CarSingleton.INSTANCE;
+				CarSingleton carObj2 = CarSingleton.INSTANCE;
 				System.out.println(carObj1.getPatternName());
 				System.out.println(carObj2.getPatternName());
 				System.out.println(carObj1 == carObj2);

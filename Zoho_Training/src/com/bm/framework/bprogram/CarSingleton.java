@@ -2,7 +2,7 @@ package com.bm.framework.bprogram;
 
 public enum CarSingleton
 {
-	GET_INSTANCE("Car Master Blueprint");
+	INSTANCE("Car Master Blueprint");
 	
 	private String patternName;
 	

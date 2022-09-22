@@ -1,14 +1,15 @@
 package com.bm.util;
-public class Utilities {
-	
-	public static void isNull(Object obj) throws CustomException
+public enum Utilities 
+{
+	VALID;
+	public void isNull(Object obj) throws CustomException
 	{
 		if(obj == null)
 		{
 			throw new CustomException("value should not be null");
 		}
 	}
-	public static void isNumValidRange(int number,int minRange,int maxRange) throws CustomException
+	public void isNumValidRange(int number,int minRange,int maxRange) throws CustomException
 	{
 		if(number > maxRange || number < minRange)
 		{
