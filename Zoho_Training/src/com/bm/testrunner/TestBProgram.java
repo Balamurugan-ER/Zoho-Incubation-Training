@@ -160,13 +160,13 @@ public class TestBProgram {
 			}
 			case 9:
 			{
-				CarSingleton obj = CarSingleton.getInstance();
-				System.out.println(obj.getCarBluePrint());
-				obj.setCarBluePrint("My new Audi");
-				System.out.println(obj.getCarBluePrint());
-				CarSingleton objN = CarSingleton.getInstance();
-				System.out.println(objN.getCarBluePrint());
-				break;
+				// Even we call multiple time singleton won't create new object.
+				//Enum Singleton - Seriableable,Thread-safe,Reflection
+				CarSingleton carObj1 = CarSingleton.GET_INSTANCE;
+				CarSingleton carObj2 = CarSingleton.GET_INSTANCE;
+				System.out.println(carObj1.getPatternName());
+				System.out.println(carObj2.getPatternName());
+				System.out.println(carObj1 == carObj2);
 			}
 			}
 		}

@@ -1,22 +1,20 @@
 package com.bm.framework.bprogram;
 
-public class CarSingleton {
-	private String carBluePrint;
-
-	private CarSingleton(){};
-	public static CarSingleton carObj = null;
-	public String getCarBluePrint() {
-		return carBluePrint;
+public enum CarSingleton
+{
+	GET_INSTANCE("Car Master Blueprint");
+	
+	private String patternName;
+	
+	public String getPatternName() {
+		return patternName;
 	}
-	public void setCarBluePrint(String carBluePrint) {
-		this.carBluePrint = carBluePrint;
+	
+	public void setPatternName(String patternName) {
+		this.patternName = patternName;
 	}
-	public static CarSingleton getInstance()
+	CarSingleton(String pName)
 	{
-		if(carObj == null)
-		{
-			return carObj = new CarSingleton();
-		}
-		return carObj;
+		setPatternName(pName);
 	}
 }
