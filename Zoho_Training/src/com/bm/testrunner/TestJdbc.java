@@ -3,8 +3,6 @@
  */
 package com.bm.testrunner;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import com.bm.framework.jdbc.*;
 import com.bm.util.CustomException;
@@ -14,11 +12,12 @@ import com.bm.util.CustomException;
  */
 public class TestJdbc 
 {
-	private static void printRecord(LinkedHashMap<Integer, ArrayList<String>> map)
-	{
-		for(Entry<Integer, ArrayList<String>> entry : map.entrySet())
+	private static void printRecord(ArrayList<Object> records)
+	{ 
+		int length = records.size();
+		for(int i=0;i< length;i++)
 		{
-			System.out.println(entry.getValue());
+			System.out.println(records.get(i));
 		}
 	}
 	public static void main(String[] args)
@@ -30,6 +29,12 @@ public class TestJdbc
 		System.out.println("3.Get Record for a given employee name");
 		System.out.println("4.Updating values in records");
 		System.out.println("5.Fetch N records from Emp table");
+		System.out.println("6.Fetch N records ordered");
+		System.out.println("7.Delete Record");
+		System.out.println("8.Create Dependent Table");
+		System.out.println("9.Add Entry in Dependent table");
+		System.out.println("10.List depenend record for given emp id");
+		System.out.println("11.Fetch N records from dependent table");
 		try
 		{
 			while(flag)
@@ -56,18 +61,19 @@ public class TestJdbc
 					int count = scan.nextInt();
 					for(int i=1;i<=count;i++)
 					{
+						Employee employee = new Employee();
 						System.out.println("Enter EmpId ");
-						int empId = scan.nextInt();
+						employee.setEmpId(scan.nextInt());
 						scan.nextLine();
 						System.out.println("Enter Emp Name");
-						String empName = scan.nextLine();
+						employee.setEmpName(scan.nextLine());
 						System.out.println("Enter Emp mobile number");
-						String empMobile = scan.nextLine();
+						employee.setEmpPhone(scan.nextLine());
 						System.out.println("Enter Emp mail");
-						String empEmail = scan.nextLine();
+						employee.setEmpEmail(scan.nextLine());
 						System.out.println("Enter Emp Dept");
-						String empDepartment = scan.nextLine();
-						JdbcBeginner.addEntry(empId,empName,empMobile,empEmail,empDepartment);
+						employee.setEmpDept(scan.nextLine());
+						JdbcBeginner.addEntry(employee);
 					}
 					break;
 				}
@@ -75,14 +81,15 @@ public class TestJdbc
 				{
 					System.out.println("Enter name to find a complete record ");
 					String name = scan.next();
-					LinkedHashMap<Integer,ArrayList<String>> map  = (LinkedHashMap<Integer, ArrayList<String>>) JdbcBeginner.getRecord(name);
-					printRecord(map);
+					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getRecord(name);
+					printRecord(employees);
 					break;
 				}
 				case 4:
 				{
 					System.out.println("Enter Emp id To update the data");
-					int empId = scan.nextInt();
+					Employee employee = new Employee();
+					employee.setEmpId(scan.nextInt());
 					System.out.println("Enter Choice : ");
 					System.out.println("1.Modify Mobile");
 					System.out.println("2.Modify Email");
@@ -90,34 +97,112 @@ public class TestJdbc
 					int choice = scan.nextInt();
 					if(choice == 1)
 					{
-						System.out.println("Enter Mobile Number to update : ");
-						String empNum = scan.next();
-						JdbcBeginner.updateRecords(empId,"mobile",empNum);
+						System.out.println("Enter Mobile Number to update : ");		
+						employee.setEmpPhone(scan.next());
+						JdbcBeginner.updateRecords(employee.getEmpId(),"mobile",employee.getEmpPhone());
+
 					}
 					if(choice == 2)
 					{
-						System.out.println("Enter new Email : ");
-						String empEmail = scan.next();
-						JdbcBeginner.updateRecords(empId, "email", empEmail);
+						System.out.println("Enter new Email : ");					
+						employee.setEmpEmail(scan.next());
+						JdbcBeginner.updateRecords(employee.getEmpId(), "email", employee.getEmpEmail());
 					}
-					
+
 					if(choice == 3)
 					{
-						System.out.println("Enter new Department : ");
-						String empDept = scan.next();
-						JdbcBeginner.updateRecords(empId, "department", empDept);
-					}					
+						System.out.println("Enter new Department : ");							
+						JdbcBeginner.updateRecords(employee.getEmpId(), "department", employee.getEmpDept());
+					}	
+					break;
 				}
 				case 5:
 				{
 					System.out.println("Fetching N records from Employee table");
 					System.out.println("Enter Number of rows to be Fetched : ");
 					int nRows = scan.nextInt();
-					LinkedHashMap<Integer,ArrayList<String>> map = (LinkedHashMap<Integer, ArrayList<String>>) JdbcBeginner.getNRecords(nRows);
-					printRecord(map);
+					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getNRecords(nRows);
+					printRecord(employees);
+					break;
+				}
+				case 6:
+				{
+					System.out.println("Enter Column name to sort");
+					String cName = scan.next();
+					System.out.println("Enter asc or desc to sort");
+					String sortType = scan.next();
+					System.out.println("Enter Number of records to fetch");
+					int nRows = scan.nextInt();
+					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getNRecordsOrder(nRows,cName,sortType);
+					printRecord(employees);
+					break;
+				}
+				case 7:
+				{
+					System.out.println("Enter emp id to delete ");
+					int empId = scan.nextInt();
+					int affected = JdbcBeginner.deleteRecord(empId);
+					System.out.println(affected+" Rows Affected");
+					break;
+				}
+				case 8:
+				{
+					JdbcBeginner.createDepTable();
+					break;
+				}
+				case 9:
+				{
+					System.out.println("Enter num of Records");			
+					int count = scan.nextInt();
+					for(int i=1;i<=count;i++)
+					{
+						Dependent dependent = new Dependent();
+						System.out.println("Enter Emp id to add Dependent records");
+						
+						dependent.setId(scan.nextInt());
+						System.out.println("Enter name of the Dependent");
+						
+						dependent.setName(scan.next());
+						System.out.println("Enter RelationShip ");
+		
+						dependent.setRelationShip(scan.next());
+						JdbcBeginner.AddRecordsDependent(dependent);
+					}
+					break;
+				}
+				case 10:
+				{
+					System.out.println("1.emp_id");
+					System.out.println("2.emp_name");
+					int choice = scan.nextInt();
+					if(choice ==1)
+					{
+						System.out.println("Enter Employee Id ");
+						Integer empId = scan.nextInt();					
+						ArrayList<Object> dependRecords =(ArrayList<Object>) JdbcBeginner.getRecordsDependent("emp_id",empId,true);
+						printRecord(dependRecords);
+						
+					}
+					if(choice ==2)
+					{
+						System.out.println("Enter Employee name ");
+						String name = scan.next();
+						ArrayList<Object> dependRecords =(ArrayList<Object>) JdbcBeginner.getRecordsDependent("name",name,false);
+						printRecord(dependRecords);
+					}		
+					
+					break;
+				}
+				case 11:
+				{
+					System.out.println("Enter how many Records to fetch");
+					int count = scan.nextInt();
+					ArrayList<Object> dependRecords = (ArrayList<Object>) JdbcBeginner.getNRecordSDependent(count);
+					printRecord(dependRecords);
 					break;
 				}
 				}
+
 			}
 		}
 		catch(CustomException e)

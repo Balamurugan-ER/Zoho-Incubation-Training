@@ -10,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Properties;
 import com.bm.util.*;
 /**
@@ -59,19 +57,18 @@ public class JdbcBeginner
 			if(rescode)
 			{
 				ResultSet result = statement.getResultSet();
-
-				LinkedHashMap<Integer,List<Object>> db = new LinkedHashMap<>();
+				ArrayList<Employee> employeeRecords = new ArrayList<>();
 				while(result.next())
 				{
-					List<Object> record = new ArrayList<Object>();
-					record.add(result.getInt(1));
-					record.add(result.getString(2));
-					record.add(result.getString(3));
-					record.add(result.getString(4));
-					record.add(result.getString(5));
-					db.put(result.getInt(1),record);
+					Employee employee = new Employee();
+					employee.setEmpId(result.getInt(1));
+					employee.setEmpName(result.getString(2));
+					employee.setEmpPhone(result.getString(3));
+					employee.setEmpEmail(result.getString(4));
+					employee.setEmpDept(result.getString(5));
+					employeeRecords.add(employee);
 				}
-				return db;
+				return employeeRecords;
 			}			
 		}
 		catch (SQLException  e) 
@@ -89,19 +86,18 @@ public class JdbcBeginner
 	}
 
 	//TODO :-2 Add 10 employee records 
-	public static void addEntry(int empId,String empName,String empMobile,String empEmail,String empDepartment) throws CustomException
+	public static void addEntry(Employee employee) throws CustomException
 	{
 		String query = "INSERT INTO employee VALUES(?,?,?,?,?);";
 		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
 				PreparedStatement prepareStatement = connection.prepareStatement(query);
 				)
 		{
-
-			prepareStatement.setInt(1, empId);
-			prepareStatement.setString(2, empName);
-			prepareStatement.setString(3, empMobile);
-			prepareStatement.setString(4, empEmail);
-			prepareStatement.setString(5, empDepartment);
+			prepareStatement.setInt(1, employee.getEmpId());
+			prepareStatement.setString(2, employee.getEmpName());
+			prepareStatement.setString(3, employee.getEmpPhone());
+			prepareStatement.setString(4, employee.getEmpEmail());
+			prepareStatement.setString(5, employee.getEmpDept());
 			System.out.println(prepareStatement);
 			prepareStatement.execute();
 
@@ -125,27 +121,19 @@ public class JdbcBeginner
 			if(rescode)
 			{
 				ResultSet result = prepareStatement.getResultSet();
-
-				LinkedHashMap<Integer,List<Object>> db = new LinkedHashMap<>();
+				ArrayList<Employee> employeeRecords = new ArrayList<>();
 				while(result.next())
 				{
-					List<Object> record = new ArrayList<Object>();
-					record.add(result.getInt(1));
-					record.add(result.getString(2));
-					record.add(result.getString(3));
-					record.add(result.getString(4));
-					record.add(result.getString(5));
-					db.put(result.getInt(1),record);
+					Employee employee = new Employee();
+					employee.setEmpId(result.getInt(1));
+					employee.setEmpName(result.getString(2));
+					employee.setEmpPhone(result.getString(3));
+					employee.setEmpEmail(result.getString(4));
+					employee.setEmpDept(result.getString(5));
+					employeeRecords.add(employee);
 				}
-				return db;
-			}	
-			//			if(rescode)
-			//			{
-			//				ResultSet result = prepareStatement.getResultSet();
-			//				result.next();
-			//				System.out.println("| EMP ID |  EMP NAME  | EMP MOBILE |   EMP MAILID   | EMP DEPARTMENT | ");
-			//				System.out.format("%8s | %10s | %10s | %15s | %10s |\n",result.getInt(1),result.getString(2),result.getString(3),result.getString(4),result.getString(5));
-			//			}
+				return employeeRecords;
+			}
 
 		} catch (SQLException e) {
 
@@ -161,7 +149,6 @@ public class JdbcBeginner
 				PreparedStatement prepareStatement = connection.prepareStatement(query);
 				)
 		{
-			//prepareStatement.setString(1, key);
 			prepareStatement.setString(1, value);
 			prepareStatement.setInt(2,empId);
 			System.out.println(prepareStatement);
@@ -186,19 +173,18 @@ public class JdbcBeginner
 			if(rescode)
 			{
 				ResultSet result = prepareStatement.getResultSet();
-
-				LinkedHashMap<Integer,List<Object>> db = new LinkedHashMap<>();
+				ArrayList<Employee> employeeRecords = new ArrayList<>();
 				while(result.next())
 				{
-					List<Object> record = new ArrayList<Object>();
-					record.add(result.getInt(1));
-					record.add(result.getString(2));
-					record.add(result.getString(3));
-					record.add(result.getString(4));
-					record.add(result.getString(5));
-					db.put(result.getInt(1),record);
+					Employee employee = new Employee();
+					employee.setEmpId(result.getInt(1));
+					employee.setEmpName(result.getString(2));
+					employee.setEmpPhone(result.getString(3));
+					employee.setEmpEmail(result.getString(4));
+					employee.setEmpDept(result.getString(5));
+					employeeRecords.add(employee);
 				}
-				return db;
+				return employeeRecords;
 			}	
 
 		}
@@ -210,18 +196,180 @@ public class JdbcBeginner
 		return null;
 	}
 	//TODO 6 Rep 5 Sorted by asc or des on any column
+	public static Object getNRecordsOrder(int nRows,String cName,String asc) throws CustomException
+	{
+		String query = "SELECT * from employee ORDER BY "+cName+" "+ asc+" LIMIT ? ;";
+		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
+				PreparedStatement prepareStatement = connect.prepareStatement(query);
+				)
+		{
+			prepareStatement.setInt(1, nRows);
+			boolean rescode = prepareStatement.execute();
+			if(rescode)
+			{
+				ResultSet result = prepareStatement.getResultSet();
+				ArrayList<Employee> employeeRecords = new ArrayList<>();
+				while(result.next())
+				{
+					Employee employee = new Employee();
+					employee.setEmpId(result.getInt(1));
+					employee.setEmpName(result.getString(2));
+					employee.setEmpPhone(result.getString(3));
+					employee.setEmpEmail(result.getString(4));
+					employee.setEmpDept(result.getString(5));
+					employeeRecords.add(employee);
+				}
+				return employeeRecords;
+			}
 
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new CustomException(e.getMessage());
+		}
+		return null;
+	}
+
+	
 	//TODO 7 Delete a record by given id
-
+	public static int deleteRecord(int id) throws CustomException
+	{
+		String query = "delete from employee where emp_id=?";
+		int rescode;
+		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
+				PreparedStatement prepareStatement = connect.prepareStatement(query);
+				)
+		{
+			prepareStatement.setInt(1, id);
+			rescode = prepareStatement.executeUpdate();
+		}
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new CustomException(e.getMessage());
+		}
+		return rescode;
+	}
 	//TODO 8 POJO for employee Rep 2,3,5,6
 
 	//TODO 9 Create Dep table NAME,AGE as Foreign key
+	public static void createDepTable() throws CustomException
+	{
+		String query= "CREATE TABLE Dependent (\n"
+				+ "    ID int,\n"
+				+ "    NAME VARCHAR(30),\n"
+				+ "    RELATIONSHIP VARCHAR(30),\n"
+				+ "    FOREIGN KEY (ID) REFERENCES employee(emp_id)\n"
+				+ ");";
+		executeQuery(query);
+	}
 
 	//TODO 10 ADD atleast 2 Records to dep table
+	public static void AddRecordsDependent(Dependent dependent) throws CustomException
+	{
+		String query = "INSERT INTO Dependent VALUES(?,?,?);";
+		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
+				PreparedStatement prepareStatement = connection.prepareStatement(query);
+				)
+		{
+			prepareStatement.setInt(1, dependent.getId());
+			prepareStatement.setString(2, dependent.getName());
+			prepareStatement.setString(3, dependent.getRelationShip());
+			System.out.println(prepareStatement);
+			prepareStatement.execute();
 
+		} catch (SQLException e) {
+
+			throw new CustomException(e.getMessage());			
+		}
+
+		
+	}
 	//TODO 11 Get Depend Record
+	//
+	//SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee.name="apple" LIMIT 10;
 
+	//SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee.emp_id=1 LIMIT 10;
+	
+	public static Object getRecordsDependent(String column ,Object value,boolean id) throws CustomException
+	{
+		//String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee."+column+"="+value+";";
+		String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee."+column+"=?;";
+		
+		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
+				PreparedStatement prepareStatement = connect.prepareStatement(query);
+				)
+		{
+			if(!id)
+			{
+				prepareStatement.setString(1, (String) value);
+			}
+			else
+			{
+				prepareStatement.setInt(1, (Integer) value);
+			}			
+			System.out.println(prepareStatement);
+			boolean rescode = prepareStatement.execute();
+			if(rescode)
+			{
+				ResultSet result = prepareStatement.getResultSet();
+				ArrayList<Dependent> dependentRecords = new ArrayList<>();
+				while(result.next())
+				{
+					Dependent dependent = new Dependent();
+					dependent.setId(result.getInt(1));
+					dependent.setName(result.getString(2));
+					dependent.setRelationShip(result.getString(3));
+					dependent.setEmpName(result.getString(4));
+					dependentRecords.add(dependent);
+				}
+				return dependentRecords;
+			}
+
+
+		}
+
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new CustomException(e.getMessage());
+		}
+		return null;
+	}
+
+	
 	//TODO 12 GET First N employees name&emp as sorted asc
+	public static Object getNRecordSDependent(int count) throws CustomException
+	{
+		String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id LIMIT ?;";
+		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
+				PreparedStatement prepareStatement = connection.prepareStatement(query);
+				)
+		{
+			prepareStatement.setInt(1, count);
+			System.out.println(prepareStatement);
+			boolean rescode = prepareStatement.execute();
+			if(rescode)
+			{
+				ResultSet result = prepareStatement.getResultSet();
+				ArrayList<Dependent> dependentRecords = new ArrayList<>();
+				while(result.next())
+				{
+					Dependent dependent = new Dependent();
+					dependent.setId(result.getInt(1));
+					dependent.setName(result.getString(2));
+					dependent.setRelationShip(result.getString(3));
+					dependentRecords.add(dependent);
+				}
+				return dependentRecords;
+			}
+
+		} catch (SQLException e) {
+
+			throw new CustomException(e.getMessage());
+		}
+		return null;
+	}
+
 }
 
 
