@@ -16,14 +16,35 @@ import com.bm.util.*;
  * @author Balamurugan
  *
  */
-public class JdbcBeginner 
+public class JdbcBeginner
 {
 	//TODO :-1 create table method 
 	// Exp - Columns names
-
+	
 	public enum Creds
 	{
 		INSTANCE;
+		
+		public Connection getConnection() throws CustomException
+		{
+			Connection connection;
+			try {
+				connection = DriverManager.getConnection(getCredentials("url"),getCredentials("username") ,getCredentials("password"));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw new CustomException(e.getMessage());
+			}
+			return connection;
+		}
+		public void closeConnection(Connection connection) throws CustomException
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				throw new CustomException(e.getMessage());
+			}
+		}
 		private Properties credentials = new Properties();
 
 		public String getCredentials(String key) {
@@ -49,8 +70,8 @@ public class JdbcBeginner
 	}
 	public static Object executeQuery(String query) throws CustomException
 	{
-		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
-				Statement statement = connection.createStatement();)
+		try(
+				Statement statement = Creds.INSTANCE.getConnection().createStatement();)
 		{			
 			boolean rescode = statement.execute(query);
 			System.out.println("Query executed successfully");
@@ -68,6 +89,7 @@ public class JdbcBeginner
 					employee.setEmpDept(result.getString(5));
 					employeeRecords.add(employee);
 				}
+				result.close();
 				return employeeRecords;
 			}			
 		}
@@ -81,7 +103,6 @@ public class JdbcBeginner
 	public Object showColumns() throws CustomException
 	{
 		String createTableSql = "SHOW COLUMNS from employee";
-		//Map<I,L> mapObject = (Map<I, L>) ExecuteQuery(createTableSql);
 		return executeQuery(createTableSql);		
 	}
 
@@ -89,9 +110,7 @@ public class JdbcBeginner
 	public static void addEntry(Employee employee) throws CustomException
 	{
 		String query = "INSERT INTO employee VALUES(?,?,?,?,?);";
-		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
-				PreparedStatement prepareStatement = connection.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			prepareStatement.setInt(1, employee.getEmpId());
 			prepareStatement.setString(2, employee.getEmpName());
@@ -111,9 +130,7 @@ public class JdbcBeginner
 	public static Object getRecord(String name) throws CustomException
 	{
 		String query = "select * from employee where name=?;";
-		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
-				PreparedStatement prepareStatement = connection.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			prepareStatement.setString(1, name);
 			System.out.println(prepareStatement);
@@ -132,6 +149,7 @@ public class JdbcBeginner
 					employee.setEmpDept(result.getString(5));
 					employeeRecords.add(employee);
 				}
+				result.close();
 				return employeeRecords;
 			}
 
@@ -145,65 +163,28 @@ public class JdbcBeginner
 	public static void updateRecords(int empId,String key,String value) throws CustomException
 	{
 		String query = "UPDATE employee SET "+key+"=? WHERE emp_id =?;";
-		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
-				PreparedStatement prepareStatement = connection.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			prepareStatement.setString(1, value);
 			prepareStatement.setInt(2,empId);
 			System.out.println(prepareStatement);
 			prepareStatement.execute();
-			getNRecords(100);
+			//getNRecords(100);
 			
 		} catch (SQLException e) {
 			
 			throw new CustomException(e.getMessage());
 		}
 	}
-	//TODO 5 Get all details of First N
-	public static Object getNRecords(int nRows) throws CustomException
-	{
-		String query = "SELECT * FROM employee LIMIT ?;";
-		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
-				PreparedStatement prepareStatement = connect.prepareStatement(query);
-				)
-		{
-			prepareStatement.setInt(1, nRows);		
-			boolean rescode = prepareStatement.execute();
-			if(rescode)
-			{
-				ResultSet result = prepareStatement.getResultSet();
-				ArrayList<Employee> employeeRecords = new ArrayList<>();
-				while(result.next())
-				{
-					Employee employee = new Employee();
-					employee.setEmpId(result.getInt(1));
-					employee.setEmpName(result.getString(2));
-					employee.setEmpPhone(result.getString(3));
-					employee.setEmpEmail(result.getString(4));
-					employee.setEmpDept(result.getString(5));
-					employeeRecords.add(employee);
-				}
-				return employeeRecords;
-			}	
-
-		}
-
-		catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new CustomException(e.getMessage());
-		}
-		return null;
-	}
+	
 	//TODO 6 Rep 5 Sorted by asc or des on any column
-	public static Object getNRecordsOrder(int nRows,String cName,String asc) throws CustomException
+	public static Object getNRecords(String tableName,String columnName,String order,int limit) throws CustomException
 	{
-		String query = "SELECT * from employee ORDER BY "+cName+" "+ asc+" LIMIT ? ;";
-		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
-				PreparedStatement prepareStatement = connect.prepareStatement(query);
-				)
+		//String query = "SELECT * from employee ORDER BY "+cName+" "+ asc+" LIMIT ? ;";
+		String query = "SELECT * from "+tableName+" ORDER BY "+columnName+" "+ order+" LIMIT ? ;";
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
-			prepareStatement.setInt(1, nRows);
+			prepareStatement.setInt(1, limit);
 			boolean rescode = prepareStatement.execute();
 			if(rescode)
 			{
@@ -219,6 +200,7 @@ public class JdbcBeginner
 					employee.setEmpDept(result.getString(5));
 					employeeRecords.add(employee);
 				}
+				result.close();
 				return employeeRecords;
 			}
 
@@ -237,9 +219,7 @@ public class JdbcBeginner
 	{
 		String query = "delete from employee where emp_id=?";
 		int rescode;
-		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
-				PreparedStatement prepareStatement = connect.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			prepareStatement.setInt(1, id);
 			rescode = prepareStatement.executeUpdate();
@@ -268,9 +248,7 @@ public class JdbcBeginner
 	public static void AddRecordsDependent(Dependent dependent) throws CustomException
 	{
 		String query = "INSERT INTO Dependent VALUES(?,?,?);";
-		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
-				PreparedStatement prepareStatement = connection.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			prepareStatement.setInt(1, dependent.getId());
 			prepareStatement.setString(2, dependent.getName());
@@ -282,23 +260,15 @@ public class JdbcBeginner
 
 			throw new CustomException(e.getMessage());			
 		}
-
 		
 	}
 	//TODO 11 Get Depend Record
-	//
-	//SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee.name="apple" LIMIT 10;
-
-	//SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee.emp_id=1 LIMIT 10;
-	
 	public static Object getRecordsDependent(String column ,Object value,boolean id) throws CustomException
 	{
 		//String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee."+column+"="+value+";";
 		String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id WHERE employee."+column+"=?;";
 		
-		try(Connection connect = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username"),Creds.INSTANCE.getCredentials("password"));
-				PreparedStatement prepareStatement = connect.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			if(!id)
 			{
@@ -323,9 +293,9 @@ public class JdbcBeginner
 					dependent.setEmpName(result.getString(4));
 					dependentRecords.add(dependent);
 				}
+				result.close();
 				return dependentRecords;
 			}
-
 
 		}
 
@@ -335,15 +305,12 @@ public class JdbcBeginner
 		}
 		return null;
 	}
-
 	
 	//TODO 12 GET First N employees name&emp as sorted asc
 	public static Object getNRecordSDependent(int count) throws CustomException
 	{
 		String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id LIMIT ?;";
-		try(Connection connection = DriverManager.getConnection(Creds.INSTANCE.getCredentials("url"),Creds.INSTANCE.getCredentials("username") ,Creds.INSTANCE.getCredentials("password") );
-				PreparedStatement prepareStatement = connection.prepareStatement(query);
-				)
+		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)
 		{
 			prepareStatement.setInt(1, count);
 			System.out.println(prepareStatement);
@@ -360,6 +327,7 @@ public class JdbcBeginner
 					dependent.setRelationShip(result.getString(3));
 					dependentRecords.add(dependent);
 				}
+				result.close();
 				return dependentRecords;
 			}
 
@@ -369,21 +337,4 @@ public class JdbcBeginner
 		}
 		return null;
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

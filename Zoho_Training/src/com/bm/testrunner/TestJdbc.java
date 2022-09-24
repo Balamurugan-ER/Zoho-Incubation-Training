@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.bm.testrunner;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -121,7 +118,7 @@ public class TestJdbc
 					System.out.println("Fetching N records from Employee table");
 					System.out.println("Enter Number of rows to be Fetched : ");
 					int nRows = scan.nextInt();
-					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getNRecords(nRows);
+					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getNRecords("employee","name","asc",nRows);
 					printRecord(employees);
 					break;
 				}
@@ -133,7 +130,7 @@ public class TestJdbc
 					String sortType = scan.next();
 					System.out.println("Enter Number of records to fetch");
 					int nRows = scan.nextInt();
-					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getNRecordsOrder(nRows,cName,sortType);
+					ArrayList<Object> employees = (ArrayList<Object>) JdbcBeginner.getNRecords("employee",cName,sortType,nRows);
 					printRecord(employees);
 					break;
 				}
