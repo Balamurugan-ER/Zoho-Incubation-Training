@@ -308,6 +308,7 @@ public class JdbcBeginner
 	
 	//TODO 12 GET First N employees name&emp as sorted asc
 	public static Object getNRecordSDependent(int count) throws CustomException
+
 	{
 		String query = "SELECT Dependent.*, employee.name FROM Dependent JOIN employee ON Dependent.id = employee.emp_id LIMIT ?;";
 		try(PreparedStatement prepareStatement = Creds.INSTANCE.getConnection().prepareStatement(query);)

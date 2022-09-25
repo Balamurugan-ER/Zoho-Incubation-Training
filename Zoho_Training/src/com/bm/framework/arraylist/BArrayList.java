@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.bm.framework.arraylist;
 import java.util.*;
 import com.bm.util.*;
