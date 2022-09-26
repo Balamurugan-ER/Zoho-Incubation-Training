@@ -3,7 +3,7 @@
  */
 package com.bm.framework.stringbuilder;
 import com.bm.util.*;
-import com.bm.util.Utilities;
+
 import java.util.Objects;
 /**
  * @author inc5
@@ -35,8 +35,9 @@ public class BstringBuilder {
 	{
 		return new StringBuilder();
 	}
-	public StringBuilder createSBuilder(String string)
+	public StringBuilder createSBuilder(String string) throws CustomException
 	{
+		checkNull(string);
 		return new StringBuilder(string);
 	}
 	public int getCapacity(StringBuilder sbString) throws CustomException
@@ -71,8 +72,9 @@ public class BstringBuilder {
 		Utilities.VALID.isNumValidRange(start, 0, length);
 		sbString.delete(start, end);
 	}
-	public String[] sbStrToArray(StringBuilder sbString,String delimiter)
+	public String[] sbStrToArray(StringBuilder sbString,String delimiter) throws CustomException
 	{
+		checkNull(sbString);
 		String string = Objects.toString(sbString);
 		return string.split(delimiter);
 	}

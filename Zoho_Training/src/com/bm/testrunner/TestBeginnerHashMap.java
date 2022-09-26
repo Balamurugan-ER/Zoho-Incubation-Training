@@ -232,13 +232,14 @@ public class TestBeginnerHashMap {
 			System.out.println("15.Printing the Hashmap");
 			System.out.println("16.Remove all Entries");
 			System.out.println("0.Exit");
+			System.out.println("1000.Sanity Check");
 			try 
 			{
 			while(flag)
 			{
 				System.out.println("Enter Your choice : ");
 				int n = scan.nextInt();
-				if(n<0 || n>16)
+				if(n!=1000 && n<0 || n>16)
 				{
 					System.out.println("Invalid Option");
 					flag=false;
@@ -329,6 +330,11 @@ public class TestBeginnerHashMap {
 				case 16:
 				{
 					test.mod16();
+					break;
+				}
+				case 1000:
+				{
+					Utilities.VALID.check("com.bm.framework.hashmap.BeginnerHashMap");
 					break;
 				}
 				}

@@ -1,6 +1,8 @@
 package com.bm.testrunner;
 import com.bm.framework.bprogram.*;
 import com.bm.util.CustomException;
+import com.bm.util.Utilities;
+
 import java.util.*;
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -23,6 +25,7 @@ public class TestBProgram {
 			System.out.println("8.Enum with values");
 			System.out.println("9.Singleton class");
 			System.out.println("0.Exit");
+			System.out.println("1000.Sanity Check");
 			int n = Integer.parseInt(scan.nextLine());
 			switch (n)
 			{
@@ -165,6 +168,12 @@ public class TestBProgram {
 				System.out.println(carObj1.getPatternName());
 				System.out.println(carObj2.getPatternName());
 				System.out.println(carObj1 == carObj2);
+				break;
+			}
+			case 1000:
+			{
+				Utilities.VALID.check("com.bm.framework.bprogram.ProgrammingBasic");
+				break;
 			}
 			}
 		}

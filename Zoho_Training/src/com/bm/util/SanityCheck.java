@@ -7,6 +7,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 
 /**
  * @author balamurugan
@@ -14,76 +16,86 @@ import java.lang.reflect.Parameter;
  */
 public class SanityCheck
 {
-	public static boolean check()
-	{
+	public void check(Class classname) throws CustomException
+	{		
+		int passedCount=0,failedCount=0;
 		try 
 		{
 			Class classObject = Class.forName("com.bm.framework.String.BeginnerString");
-			//Constructor<?> constructorObj = (Constructor<?>) classObject.newInstance();
+			Object obj = classObject.newInstance();
 			Method[] methodObject = classObject.getDeclaredMethods();
 			
 			for(Method methodIterator : methodObject)
 			{
 				Parameter[] parameter = methodIterator.getParameters();
-				Class[] paramValues = new Class[parameter.length];
-//				System.out.println(parameter.length);
-				System.out.println(methodIterator);
+				Object[] paramValues = new Object[parameter.length];
+				
+				int i = 0;
+				System.out.println(methodIterator.getName());
 				for(Parameter param : parameter)
 				{
-//					System.out.println(param.getDeclaringExecutable());
-//					System.out.println(param.getModifiers()); //come back
-					check1:
-					if(parameter.length == 1)
+					String classObj=param.getType().toString();
+//					System.out.println(classObj);
+					String classTypeObj=param.getParameterizedType().toString();
+
+					if(param.getType().isPrimitive())
 					{
-						System.out.println("Check Param : "+param.getName());
-						methodIterator.setAccessible(true);
-						methodIterator.invoke(null);
+						if(param.getType().toString().equals("boolean"))
+						{
+//							System.out.println("boolean");
+							paramValues[i++] = false;
+						}
+						if(param.getType().toString().equals("int"))
+						{
+							paramValues[i++] = 0;
+						}
+						if(param.getType().toString().equals("char"))
+						{
+							paramValues[i++]='a';
+						}
 					}
-					check2:
-					if(parameter.length == 2)
+					else
 					{
-						System.out.println("Check Param : "+param.getName());
-						methodIterator.setAccessible(true);
-						methodIterator.invoke(null,null);
+						paramValues[i++] = null;
 					}
-//					System.out.println(param.getParameterizedType());
-//					System.out.print(param.getName());
-//					if(param.getParameterizedType().equals("class java.lang.Object"))
-//					{
-//						System.out.println("I found way boy ");
-//					}
+//					System.out.println(param.getType());
+				}			
+				methodIterator.setAccessible(true);
+				try {
+					methodIterator.invoke(obj,paramValues);
+				} 
+				catch (InvocationTargetException e) {
+					if(e.getCause() instanceof CustomException)
+					{
+						passedCount++;
+						System.out.println("passed "+methodIterator.getName());
+					}
+					else
+					{
+						failedCount++;
+						System.out.println("failed "+methodIterator.getName());
+					}
 					
+//					System.out.println(e.getCause());
 				}
-				//methodIterator.invoke(parameter);		
-				
 			}
 		}
-		catch(NullPointerException e)
+		catch(Exception e)
 		{
-			//e.printStackTrace();
-			System.out.println("Null Check Passed");
-			//check2();
-		}
-		catch (ClassNotFoundException e) 
-		{
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-		}  
-		catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return true;
+		System.out.println(passedCount+" Cases Passed");
+		System.out.println(failedCount+" Failed Cases");
 	}
-	public static void main(String[] args)
-	{
-		SanityCheck.check();
-	}
+//	public static void main(String[] args)
+//	{
+//		SanityCheck checkObj = new SanityCheck();
+//		try {
+//			checkObj.check();
+//		} catch (CustomException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("passed");
+////			main(args);
+//		}
+//	}
 }

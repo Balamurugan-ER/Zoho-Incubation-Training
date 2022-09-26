@@ -352,6 +352,7 @@ public class TestBArrayList {
 		System.out.println("17.Add 10 Long And removes all ");
 		System.out.println("18.Search a Element in a list ");
 		System.out.println("0.Exit");
+		System.out.println("1000.Sanity Check");
 		try
 		{	
 			boolean flag = true;
@@ -454,6 +455,11 @@ public class TestBArrayList {
 				case 18:
 				{
 					test.mod18(args);
+					break;
+				}
+				case 1000:
+				{
+					Utilities.VALID.check("com.bm.framework.arraylist.BArrayList");
 					break;
 				}
 				}

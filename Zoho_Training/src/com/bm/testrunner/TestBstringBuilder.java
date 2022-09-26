@@ -18,7 +18,7 @@ public class TestBstringBuilder {
 	private void mod2(String string) throws CustomException
 	{
 		int n =4;
-		StringBuilder sbString = obj.createSBuilder(string);
+		StringBuilder sbString = obj.createSBuilder(null);
 		System.out.println(obj.getsbLength(sbString));
 		for(int i=0;i<n;i++)
 		{
@@ -103,6 +103,7 @@ public class TestBstringBuilder {
 				System.out.println("8.Replaces with SubString");
 				System.out.println("9.Find First/Last IndexOf #");
 				System.out.println("0. Exit");
+				System.out.println("1000.Sanity Check");
 				System.out.println("Enter Your Choice");
 				int choice = scan.nextInt();
 				switch(choice)
@@ -195,6 +196,11 @@ public class TestBstringBuilder {
 					System.out.println("Enter true-First/false-Last");
 					boolean first = scan.nextBoolean();
 					test.mod9(string,first);	
+					break;
+				}
+				case 1000:
+				{
+					Utilities.VALID.check("com.bm.framework.stringbuilder.BstringBuilder");
 					break;
 				}
 				}

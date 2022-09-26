@@ -122,6 +122,7 @@ public class TestBeginnerString {
 			System.out.println("15. Strings equal or not ");
 			System.out.println("16. Trimes the Spaces in String ");
 			System.out.println("0. Exit ");
+			System.out.println("1000.SanityCheck");
 
 			while(flag)
 			{
@@ -297,7 +298,12 @@ public class TestBeginnerString {
 				{
 					flag = false;
 					break;
-				}    
+				} 
+				case 1000:
+				{
+					Utilities.VALID.check("com.bm.framework.String.BeginnerString");
+					break;
+				}
 				}		
 			}
 
