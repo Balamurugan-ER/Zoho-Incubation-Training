@@ -3,11 +3,13 @@
  */
 package com.bm.framework.jdbc;
 
+import java.io.Serializable;
+
 /**
  * @author Balamurugan
  *
  */
-public class Employee 
+public class Employee implements Serializable 
 {
 	private int empId;
 	private String empName;
