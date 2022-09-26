@@ -1,8 +1,6 @@
 package com.bm.testrunner;
 import com.bm.framework.bprogram.*;
-import com.bm.util.*;
 import com.bm.util.CustomException;
-
 import java.util.*;
 import java.io.*;
 import java.lang.reflect.Constructor;
@@ -64,7 +62,7 @@ public class TestBProgram {
 					String value = scan.nextLine();
 					try {
 						PropClass.addEntry(fileName, key, value);
-					} catch (com.bm.framework.bprogram.CustomException e) {
+					} catch (CustomException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

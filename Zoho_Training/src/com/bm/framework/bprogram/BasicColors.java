@@ -2,7 +2,6 @@ package com.bm.framework.bprogram;
 
 public class BasicColors {
 	public enum Color {
-	    
 		VIOLET(1),
 		INDIGO(2),
 	    RED(3),

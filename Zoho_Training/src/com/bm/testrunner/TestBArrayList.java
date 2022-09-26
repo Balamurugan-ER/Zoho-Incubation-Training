@@ -14,7 +14,7 @@ public class TestBArrayList {
 	BArrayList obj = new BArrayList();
 	private boolean isValidArr(String[] array,int expLength) throws CustomException
 	{
-		obj.checkNull(array);
+		Utilities.VALID.isNull(array);
 		if(array.length < expLength)
 		{
 			throw new CustomException("Given Arguments are not Enough to Process");

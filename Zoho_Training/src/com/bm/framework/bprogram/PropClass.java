@@ -1,5 +1,8 @@
 package com.bm.framework.bprogram;
 import java.util.*;
+
+import com.bm.util.CustomException;
+
 import java.io.*;
 public class PropClass
 {
