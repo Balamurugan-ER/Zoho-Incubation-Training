@@ -47,6 +47,7 @@ public class TrySerialization
 				ObjectOutputStream os = new ObjectOutputStream(fileStream);)
 		{
 			os.writeObject(employees);
+			System.out.println("Serialization completed");
 		}
 		catch (FileNotFoundException e) 
 		{
@@ -64,6 +65,7 @@ public class TrySerialization
 		{
 			Object obj = os.readObject();
 			ArrayList<Employee> empList = (ArrayList<Employee>) obj;
+			System.out.println("Object deserialized Successfully");
 			displayValue();
 		} 
 		catch (FileNotFoundException e) {

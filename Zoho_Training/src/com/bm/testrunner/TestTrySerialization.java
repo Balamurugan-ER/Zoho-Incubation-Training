@@ -15,7 +15,7 @@ public class TestTrySerialization
 		TrySerialization trySerial = new TrySerialization();
 		trySerial.addDummyValues();
 //		trySerial.displayValue();
-		trySerial.serializeObject();
+//		trySerial.serializeObject();
 		trySerial.deSerializeObject();
 	}
 }
