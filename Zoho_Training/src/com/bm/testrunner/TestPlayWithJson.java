@@ -27,8 +27,5 @@ public class TestPlayWithJson
 		{
 			e.printStackTrace();
 		}
-		
-		//json.createJson("example.json");
-		//json.parseJsonFile("example.json");
 	}
 }
