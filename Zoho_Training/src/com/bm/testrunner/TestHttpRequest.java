@@ -11,21 +11,15 @@ import com.bm.framework.httprequest.AccountsInfo;
  * @author Balamurugan
  *
  */
-public class TestPlayWithJson 
+public class TestHttpRequest 
 {
-	
 	public static void main(String[] args)
 	{
-//		PlayWithJson play = new PlayWithJson();
 		AccountsInfo accounts = new AccountsInfo();
 		try
 		{
 			JSONObject json = accounts.getUserInfo();
-			System.out.println(json);
-			
-//			System.out.println(json.createJson("example.json"));
-//			System.out.println(json.parseJsonFile("example.json"));
-			
+			System.out.println(json);			
 		} 
 		catch (Exception e)
 		{
