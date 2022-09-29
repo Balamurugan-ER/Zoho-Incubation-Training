@@ -7,6 +7,11 @@ import java.util.*;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 public class TestBProgram {
 	public static void main(String[] args) throws Exception {
 
@@ -24,6 +29,7 @@ public class TestBProgram {
 			System.out.println("7.Reflection - Invoking POJO class default constructor and custom constructor");
 			System.out.println("8.Enum with values");
 			System.out.println("9.Singleton class");
+			System.out.println("10.Get Current Date Time");
 			System.out.println("0.Exit");
 			System.out.println("1000.Sanity Check");
 			int n = Integer.parseInt(scan.nextLine());
@@ -111,7 +117,8 @@ public class TestBProgram {
 			{
 				// reflection a constructor
 				// reflection a custom constructor
-				try {
+				try
+				{
 					Class refClass = Class.forName("programming.Fruits");
 					Fruits t = (Fruits) refClass.newInstance();
 					Constructor<?> construct = refClass.getDeclaredConstructor(String.class,Integer.class);
@@ -170,6 +177,56 @@ public class TestBProgram {
 				System.out.println(carObj1 == carObj2);
 				break;
 			}
+			case 10:
+			{
+				String time = ProgrammingBasic.getTime();
+				System.out.println(time);
+				break;
+			}
+			case 11:
+			{
+				long timeMilli = ProgrammingBasic.getTimeMilliSeconds();
+				System.out.println(timeMilli);
+				break;
+			}
+			case 12:
+			{
+				System.out.println("Select Zone from these list");
+				for(String zones : ZoneId.getAvailableZoneIds())
+				{
+					System.out.println(zones);
+				}
+				String zone = scan.nextLine();
+				DateTimeFormatter dft = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
+				ZonedDateTime dateTime = ProgrammingBasic.getDateTime(ZoneId.of(zone));
+				System.out.println(dft.format(dateTime));
+				break;
+			}
+			case 13:
+			{
+				String zone = scan.nextLine();
+				int dateTime = ProgrammingBasic.getYear(ZoneId.of(zone));
+				System.out.println(dateTime);
+				break;
+			}
+			case 14:
+			{
+				String zone = scan.nextLine();
+				DayOfWeek dateTime = ProgrammingBasic.getWeek(ZoneId.of(zone));
+				System.out.println(dateTime);
+				break;
+			}
+			case 15:
+			{
+				String zone = scan.nextLine();
+				int dateTime = ProgrammingBasic.getMonth(ZoneId.of(zone));
+				System.out.println(dateTime);
+				break;
+			}
+			case 16:
+			{
+				
+			}
 			case 1000:
 			{
 				Utilities.VALID.check("com.bm.framework.bprogram.ProgrammingBasic");
@@ -177,7 +234,6 @@ public class TestBProgram {
 			}
 			}
 		}
-		scan.close();
 	}
 
 }

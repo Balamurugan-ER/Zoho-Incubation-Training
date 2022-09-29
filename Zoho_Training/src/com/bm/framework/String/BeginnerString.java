@@ -122,7 +122,6 @@ public class BeginnerString
 	public String convertCase(String string,boolean upper) throws CustomException
 	{
 		stringCheck(string);
-		//isNull(upper);
 		if(upper)
 		{
 			return string.toUpperCase();
