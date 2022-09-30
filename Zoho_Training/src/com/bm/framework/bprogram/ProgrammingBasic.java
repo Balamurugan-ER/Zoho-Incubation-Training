@@ -15,8 +15,9 @@ import java.nio.file.Paths;
 /**
  * @author Balamurugan
  */
-public class ProgrammingBasic {
-	private static  Scanner scan = new Scanner(System.in);
+public class ProgrammingBasic 
+{	
+	//Creates Directory If already Exists it will skip to create one.
 	public static void createDirectory(String path) throws CustomException
 	{
 		Path location = Paths.get(path);
@@ -31,24 +32,15 @@ public class ProgrammingBasic {
 				throw new CustomException(e.getMessage());
 			}
 		}
-		else
-		{
-			throw new CustomException("Directory Already Exists");
-		}
 	}
-	public static void writeFile(String fileName,String path) throws  Exception
+	// Writes the Content on the File.
+	public static void writeFile(String fileName,String path,String content) throws  CustomException
 	{
 		createDirectory(path);
-		try(FileOutputStream fos = new FileOutputStream(new File("/home/inc5/myDir/"+fileName));
+		try(FileOutputStream fos = new FileOutputStream(new File(path+fileName));
 				BufferedWriter bWriter = new BufferedWriter(new OutputStreamWriter(fos));)
 		{
-			int n = 3;
-			for(int i=0;i<3;i++)
-			{
-				String line = scan.nextLine();
-				bWriter.write(line);
-				bWriter.newLine();
-			}
+			bWriter.write(content);
 		}
 		catch(IOException e)
 		{
@@ -69,7 +61,7 @@ public class ProgrammingBasic {
 	public static long getTimeMilliSeconds()
 	{
 		Date date = new Date();
-		long milli = date.getTime();
+		date.getTime();
 		return System.currentTimeMillis();
 	}
 	public static ZonedDateTime getDateTime(ZoneId zone)

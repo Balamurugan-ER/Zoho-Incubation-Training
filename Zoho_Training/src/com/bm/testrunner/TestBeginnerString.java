@@ -103,7 +103,7 @@ public class TestBeginnerString {
 		boolean flag = true;
 		try
 		{
-
+			
 			System.out.println("Scanner welcome");
 			System.out.println("1. Enter string to find Length : ");
 			System.out.println("2. Enter string to Convert into Char Array : ");

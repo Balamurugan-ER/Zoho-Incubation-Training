@@ -119,7 +119,6 @@ public class TestThreads
 				threadRun.start();
 				toggleThread(threadExt);
 				toggleThread(threadRun);
-			
 				break;
 			}
 			}

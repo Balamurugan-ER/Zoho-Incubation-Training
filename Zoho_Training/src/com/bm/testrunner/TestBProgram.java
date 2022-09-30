@@ -4,34 +4,41 @@ import com.bm.util.CustomException;
 import com.bm.util.Utilities;
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-public class TestBProgram {
-	public static void main(String[] args) throws Exception {
-
-		Scanner scan = new Scanner(System.in);
+public class TestBProgram 
+{
+	
+	
+	public static void main(String[] args) throws Exception 
+	{
+		Logger logger = Logger.getLogger(TestBProgram.class.getName());
+		//ConsoleHandler handler = new ConsoleHandler();
+		//handler.setFormatter(new SimpleFormatter());
+		//logger.addHandler(handler);
+		//handler.setLevel(Level.ALL);
+		Scanner scan = new Scanner(System.in);		
 		boolean flag = true;
 		while(flag)
 		{
-			System.out.println("Enter your choice");
-			System.out.println("1.Writing content in files");
-			System.out.println("2.Storing properties");
-			System.out.println("3.Finding properties value for the key");
-			System.out.println("4.Calling custom constructor and print object");
-			System.out.println("5.POJO class calling custom constructor");
-			System.out.println("6.POJO class calling default constructor & getter , setter methods");
-			System.out.println("7.Reflection - Invoking POJO class default constructor and custom constructor");
-			System.out.println("8.Enum with values");
-			System.out.println("9.Singleton class");
-			System.out.println("10.Get Current Date Time");
-			System.out.println("0.Exit");
-			System.out.println("1000.Sanity Check");
+			logger.log(Level.INFO, "Enter Your choice\n1.Writing content in files\n"
+					+ "2.Storing properties\n"
+					+ "3.Finding properties value for the key\n"
+					+ "4.Calling custom constructor and print object\n"
+					+ "5.POJO class calling custom constructor\n"
+					+ "6.POJO class calling default constructor & getter , setter methods\n"
+					+ "7.Reflection - Invoking POJO class default constructor and custom constructor\n"
+					+ "8.Enum with values\n"
+					+ "9.Singleton class\n"
+					+ "10.Get Current Date Time\n1000.Sanity Check\n"
+					+ "0.Exit");
 			int n = Integer.parseInt(scan.nextLine());
 			switch (n)
 			{
@@ -42,38 +49,52 @@ public class TestBProgram {
 			}
 			case 1:
 			{
-				System.out.println("Enter filename to write");
+				logger.log(Level.INFO,"Enter path to Directory ex(/home/inc5/myDir/)");
+				String path = scan.nextLine();
+				logger.log(Level.INFO, "Enter filename to write");
 				String fileName = scan.nextLine();
-				try {
-					ProgrammingBasic.writeFile(fileName,"/home/inc5/myDir/");
+				logger.log(Level.INFO, "Enter Number of Lines to add");
+				int limit = scan.nextInt();
+				scan.nextLine();
+				String value = "";
+				logger.log(Level.INFO, "Enter n Strings");
+				for(int i=0;i<limit;i++)
+				{
+					value += scan.nextLine() + "\n";
+				}
+				try 
+				{
+					ProgrammingBasic.writeFile(fileName,path,value);
 					
 				} catch (CustomException e) 
 				{
-					e.printStackTrace();
-				} catch (IOException e) 
-				{
-					e.printStackTrace();
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
 				}
 				break;
 			}
 			case 2:
-			{	//create properties with five properties
-				System.out.println("Enter properties name .txt or .properties");
+			{	//create properties with n properties
+				logger.log(Level.INFO,"Enter properties name .txt or .properties");
 				String fileName = scan.nextLine();
-				int limit = 5;
-				System.out.println("Provide five pair of keys and values");
+				logger.log(Level.INFO,"Enter path to Store properties ex(/home/inc5/myDir/)");
+				String path = scan.nextLine();
+				logger.log(Level.INFO,"Enter No of Entries");
+				int limit = scan.nextInt();
+				scan.nextLine();
+				logger.log(Level.INFO,"Provide pair of keys and values");
 				for(int i=1;i<=limit;i++)
-				{
-					
-					System.out.println("Enter Key :- "+i);
+				{					
+					logger.log(Level.INFO,"Enter Key :- {0}",i);
 					String key = scan.nextLine();
-					System.out.println("Enter Value :- "+i);
+					logger.log(Level.INFO,"Enter Value :- {0}",i);
 					String value = scan.nextLine();
-					try {
-						PropClass.addEntry(fileName, key, value);
-					} catch (CustomException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					try
+					{
+						MyProps.addEntry(path,fileName, key, value);
+					} 
+					catch (CustomException e) 
+					{
+						logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
 					}
 				}
 				break;
@@ -81,27 +102,31 @@ public class TestBProgram {
 			case 3:
 			{
 				//get properties using propname,key 
-				System.out.println("Enter properties file name to search props :- ");
+				logger.log(Level.INFO,"Enter path to load properties ex(/home/inc5/myDir/)");
+				String path = scan.nextLine();
+				logger.log(Level.INFO,"Enter properties file name to search props :- ");
 				String fileName = scan.nextLine();
-				System.out.println("Enter properties key to find value of the property :- ");
+				System.out.println(fileName);
+				logger.log(Level.INFO,"Enter properties key to find? :- ");
 				String key = scan.nextLine();
-				String value = PropClass.getPropsValue(fileName, key);
-				System.out.println(key +" - " +value);
+				System.out.println(key);
+				String value = MyProps.getPropsValue(path,fileName, key);
+				logger.log(Level.INFO,key +" - " +value);
 				break;
 			}
 			case 4:
 			{	//to override tostring()
-				System.out.println("Enter String to invoke custom constructor :- ");
+				logger.log(Level.INFO,"Enter String to invoke custom constructor :- ");
 				String jasmineVariable = scan.nextLine();
 				Jasmine jasmine = new Jasmine(jasmineVariable);
-				System.out.println(jasmine);
+				logger.log(Level.INFO,"Printing Jasmine Object {0}",jasmine);
 				break;
 			}
 			case 5:
 			{
 				//pojo with toString() --> using custom constructor
 				Fruits fruit = new Fruits("Apple",10);
-				System.out.println(fruit);
+				logger.log(Level.INFO,"Printing Fruits Object {0}",fruit);
 				break;
 			}
 			case 6:
@@ -110,7 +135,7 @@ public class TestBProgram {
 				Fruits fruit = new Fruits();
 				fruit.setFruitName("WaterMelon");
 				fruit.setNoOfFruits(10);
-				System.out.println(fruit);
+				logger.log(Level.INFO,"Fruits default Constructor Object {0}",fruit);
 				break;
 			}
 			case 7:
@@ -122,35 +147,43 @@ public class TestBProgram {
 					Class refClass = Class.forName("programming.Fruits");
 					Fruits t = (Fruits) refClass.newInstance();
 					Constructor<?> construct = refClass.getDeclaredConstructor(String.class,Integer.class);
-					System.out.println("Enter fruit name :- ");
+					logger.log(Level.INFO,"Enter fruit name :- ");
 					String fName = scan.nextLine();
-					System.out.println("Enter fruit Count name :- ");
+					logger.log(Level.INFO,"Enter fruit Count name :- ");
 					int fCount = Integer.parseInt(scan.nextLine());
 					Object obj = (Fruits)construct.newInstance(fName,fCount);
-					System.out.println("Printing custom constructor object");
-					System.out.println(obj);
-					System.out.println("Printing default constructor object");
+					logger.log(Level.INFO,"Printing custom constructor object {0}",obj);
 					t.setFruitName(fName);
 					t.setNoOfFruits(fCount);
-					System.out.println(t);
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					
-					e.printStackTrace();
-				} catch (NoSuchMethodException e) {
-					
-					e.printStackTrace();
-				} catch (SecurityException e) {
-					
-					e.printStackTrace();
+					logger.log(Level.INFO,"Printing default constructor object {0}",t);
+				}
+				catch (ClassNotFoundException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
+				}
+				catch (InstantiationException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
+				}
+				catch (IllegalAccessException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
+				}
+				catch (IllegalArgumentException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
+				}
+				catch (InvocationTargetException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
+				}
+				catch (NoSuchMethodException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
+				} 
+				catch (SecurityException e) 
+				{
+					logger.log(Level.SEVERE, "EXCEPTION {0}", e.getMessage());
 				} 
 				break;
 			}
@@ -162,7 +195,7 @@ public class TestBProgram {
 				{
 					BasicColors.Color currentColor = BasicColors.Color.getElement(i);
 					int cvalue = BasicColors.Color.getColorCode(currentColor);
-					System.out.println(currentColor+"-"+cvalue);
+					logger.log(Level.INFO,currentColor+"-"+cvalue);
 				}
 				break;
 			}
@@ -172,68 +205,73 @@ public class TestBProgram {
 				//Enum Singleton - Seriableable,Thread-safe,Reflection
 				CarSingleton carObj1 = CarSingleton.INSTANCE;
 				CarSingleton carObj2 = CarSingleton.INSTANCE;
-				System.out.println(carObj1.getPatternName());
-				System.out.println(carObj2.getPatternName());
-				System.out.println(carObj1 == carObj2);
+				logger.log(Level.INFO,carObj1.getPatternName());
+				logger.log(Level.INFO,carObj2.getPatternName());
+				//logger.log(Level.INFO,carObj1 == carObj2);
 				break;
 			}
 			case 10:
 			{
+				logger.log(Level.INFO,"Get Current Time");
 				String time = ProgrammingBasic.getTime();
-				System.out.println(time);
+				logger.log(Level.INFO,time);
 				break;
 			}
 			case 11:
 			{
+				logger.log(Level.INFO,"Get Current Time in MilliSeconds");
 				long timeMilli = ProgrammingBasic.getTimeMilliSeconds();
-				System.out.println(timeMilli);
+				logger.log(Level.INFO,"Time {0}",timeMilli);
 				break;
 			}
 			case 12:
 			{
-				System.out.println("Select Zone from these list");
+				logger.log(Level.INFO,"Enter Zone to get DateTime ");
 				for(String zones : ZoneId.getAvailableZoneIds())
 				{
-					System.out.println(zones);
+					logger.log(Level.INFO,"{0}",zones);
 				}
 				String zone = scan.nextLine();
 				DateTimeFormatter dft = DateTimeFormatter.ofPattern("dd-mm-yyyy HH:mm:ss");
 				ZonedDateTime dateTime = ProgrammingBasic.getDateTime(ZoneId.of(zone));
-				System.out.println(dft.format(dateTime));
+				logger.log(Level.INFO,"{0}",dft.format(dateTime));
 				break;
 			}
 			case 13:
 			{
+				logger.log(Level.INFO,"Get Current year Enter Zone Name");
 				String zone = scan.nextLine();
 				int dateTime = ProgrammingBasic.getYear(ZoneId.of(zone));
-				System.out.println(dateTime);
+				logger.log(Level.INFO,"{0}",dateTime);
 				break;
 			}
 			case 14:
 			{
+				logger.log(Level.INFO,"Get Current Week Enter Zone Name");
 				String zone = scan.nextLine();
 				DayOfWeek dateTime = ProgrammingBasic.getWeek(ZoneId.of(zone));
-				System.out.println(dateTime);
+				logger.log(Level.INFO,"Current week is {0}",dateTime);
 				break;
 			}
 			case 15:
 			{
+				logger.log(Level.INFO,"Get Current Month Enter Zone Name");
 				String zone = scan.nextLine();
 				int dateTime = ProgrammingBasic.getMonth(ZoneId.of(zone));
-				System.out.println(dateTime);
+				logger.log(Level.INFO,"Month {0}",dateTime);
 				break;
-			}
-			case 16:
-			{
-				
 			}
 			case 1000:
 			{
+				logger.log(Level.WARNING,"Sanity checking in progress .....");
 				Utilities.VALID.check("com.bm.framework.bprogram.ProgrammingBasic");
 				break;
 			}
 			}
 		}
+		scan.close();
+		logger.exiting(TestBProgram.class.getName().toString(), "Main Method");
+		
 	}
 
 }

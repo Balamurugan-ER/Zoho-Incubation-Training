@@ -1,12 +1,13 @@
 package com.bm.framework.bprogram;
 
-public class Jasmine {
-
-	private String jasmineVariable;
+public class Jasmine 
+{
 	public Jasmine()
 	{
 		super();
 	}
+	private String jasmineVariable;
+	
 	public Jasmine(String string) 
 	{
 		jasmineVariable = string;

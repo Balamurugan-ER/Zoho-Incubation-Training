@@ -10,7 +10,8 @@ public enum CarSingleton
 		return patternName;
 	}
 	
-	public void setPatternName(String patternName) {
+	public void setPatternName(String patternName) 
+	{
 		this.patternName = patternName;
 	}
 	CarSingleton(String pName)

@@ -10,6 +10,8 @@ public class BMap<K,V>{
 	private K key;
 	private V value;
 	private BMap<K,V> next;
+	//private Account account;
+	
 	public BMap(K key,V value)
 	{
 		this.key = key;
