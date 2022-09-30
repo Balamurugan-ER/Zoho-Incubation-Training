@@ -1,17 +1,20 @@
 package com.bm.testrunner;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.bm.framework.threads.ExtendedThread;
 import com.bm.framework.threads.RunnableThread;
 
 public class TestThreads 
 {
+	private static Logger logger = Logger.getLogger(TestThreads.class.getName());
 	private static void toggleThread(ExtendedThread thread)
 	{
 		try
 		{
-			System.out.println("Sleeping ..M "+thread.getName());
+			logger.log(Level.INFO,"Sleeping ..M "+thread.getName());
 			thread.sleep(30000);
 		} catch (InterruptedException e) 
 		{
@@ -28,15 +31,15 @@ public class TestThreads
 	{
 		boolean flag = true;
 		Scanner scan = new Scanner(System.in);
-		System.out.println("1.Create Thread ExtendedThread");
-		System.out.println("2.Create thread implementing Runnable interface");
-		System.out.println("3.Create Two Threads and display current info");
-		System.out.println("4.Threads Sleeping for given seconds ");
-		System.out.println("5.Thread dumps");
-		System.out.println("0.Exit");
+		logger.log(Level.INFO,"1.Create Thread ExtendedThread\n"
+				+ "2.Create thread implementing Runnable interface\n"
+				+ "3.Create Two Threads and display current info\n"
+				+ "4.Threads Sleeping for given seconds\n"
+				+ "5.Thread dumps\n"
+				+ "0.Exit\n"
+				+ "Enter Choice : ");
 		while(flag)
 		{
-			System.out.println("Enter Choice : ");
 			int n = scan.nextInt();
 			switch(n)
 			{
@@ -47,7 +50,8 @@ public class TestThreads
 			}
 			case 1:
 			{
-				ExtendedThread threadOne = new ExtendedThread("one");
+				String tName = scan.next();
+				ExtendedThread threadOne = new ExtendedThread(tName);
 				threadOne.displayThreadInfo(threadOne);
 				threadOne.start();
 				threadOne.displayThreadInfo(threadOne);
@@ -59,7 +63,8 @@ public class TestThreads
 			{
 //				RunnableThread runThread = new RunnableThread();
 //				Thread thread = new Thread(runThread,"two");
-				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),"Two");
+				String tName = scan.next();
+				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),tName);
 				threadRun.displayThreadInfo(threadRun);
 				threadRun.start();
 				threadRun.displayThreadInfo(threadRun);
@@ -69,10 +74,13 @@ public class TestThreads
 			}
 			case 3:
 			{
-				ExtendedThread threadExt = new ExtendedThread("ExtendedThread");
+				logger.log(Level.INFO, "Enter Name for Two Threads");
+				String t1Name = scan.next();
+				String t2Name = scan.next();
+				ExtendedThread threadExt = new ExtendedThread(t1Name);
 //				RunnableThread runnableObj = new RunnableThread();
 //				Thread threadRun = new Thread(runnableObj,"RunnableThread");
-				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),"ExtendedThread");
+				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),t2Name);
 				threadExt.displayThreadInfo(Thread.currentThread());
 				threadExt.start();
 				threadExt.displayThreadInfo(Thread.currentThread());
@@ -83,8 +91,11 @@ public class TestThreads
 			}
 			case 4:
 			{
-				ExtendedThread threadExt = new ExtendedThread("ExtendedThread");
-				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),"RunnableThread");
+				logger.log(Level.INFO, "Enter Name for Two Threads");
+				String t1Name = scan.next();
+				String t2Name = scan.next();
+				ExtendedThread threadExt = new ExtendedThread(t1Name);
+				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),t2Name);
 				threadExt.setMilliSeconds(60000);
 				threadRun.setMilliSeconds(45000);
 				threadExt.displayThreadInfo(threadExt);
@@ -97,24 +108,30 @@ public class TestThreads
 			}
 			case 5:
 			{
-				ExtendedThread threadExt = new ExtendedThread("Unique-Thread");				
-				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),"RunnableThread");	
+				logger.log(Level.INFO, "Enter Name for Two Threads");
+				String t1Name = scan.next();
+				String t2Name = scan.next();
+				ExtendedThread threadExt = new ExtendedThread(t1Name);				
+				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),t2Name);	
 				threadExt.setMilliSeconds(4000);
 				threadRun.setMilliSeconds(3000);
-				System.out.println(threadExt.getName()+" Started at Main..");
-				System.out.println(threadRun.getName()+" Started at Main..");
+				logger.log(Level.INFO,threadExt.getName()+" Started at Main..");
+				logger.log(Level.INFO,threadRun.getName()+" Started at Main..");
 				threadExt.start();
 				threadRun.start();	
 				break;
 			}
 			case 6:
 			{
-				ExtendedThread threadExt = new ExtendedThread("Unique-Thread");				
-				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),"RunnableThread");	
+				logger.log(Level.INFO, "Enter Name for Two Threads");
+				String t1Name = scan.next();
+				String t2Name = scan.next();
+				ExtendedThread threadExt = new ExtendedThread(t1Name);				
+				ExtendedThread threadRun = new ExtendedThread(new RunnableThread(),t2Name);	
 				threadExt.setMilliSeconds(4000);
 				threadRun.setMilliSeconds(3000);
-				System.out.println(threadExt.getName()+" Started at Main..");
-				System.out.println(threadRun.getName()+" Started at Main..");
+				logger.log(Level.INFO,threadExt.getName()+" Started at Main..");
+				logger.log(Level.INFO,threadRun.getName()+" Started at Main..");
 				threadExt.start();
 				threadRun.start();
 				toggleThread(threadExt);

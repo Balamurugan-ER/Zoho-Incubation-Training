@@ -3,10 +3,12 @@
  */
 package com.bm.testrunner;
 
+import java.util.Scanner;
+import java.util.logging.Level;
+
 import org.json.JSONObject;
 
-import com.bm.framework.httprequest.AccountsInfo;
-
+import com.bm.framework.json.PlayWithJson;
 /**
  * @author Balamurugan
  *
@@ -16,17 +18,15 @@ public class TestPlayWithJson
 	
 	public static void main(String[] args)
 	{
-//		PlayWithJson play = new PlayWithJson();
-		AccountsInfo accounts = new AccountsInfo();
-		try
+		PlayWithJson json = new PlayWithJson();
+		try(Scanner scan = new Scanner(System.in);)
 		{
-			JSONObject json = accounts.getUserInfo();
-			System.out.println(json);
-			
-//			System.out.println(json.createJson("example.json"));
-//			System.out.println(json.parseJsonFile("example.json"));
-			
-		} 
+			java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TestPlayWithJson.class.getName());
+			logger.log(Level.INFO, "Enter name of the Json ");
+			String fileName = scan.next();
+			logger.log(Level.INFO,"{0}",json.createJson(fileName+".json"));
+			logger.log(Level.INFO,"{0}",json.parseJsonFile(fileName+".json"));			
+		}
 		catch (Exception e)
 		{
 			e.printStackTrace();

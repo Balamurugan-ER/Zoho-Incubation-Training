@@ -1,4 +1,8 @@
 package com.bm.framework.inheritance;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author Balamurugan
  *
@@ -10,6 +14,7 @@ public class Scross extends Car
 	private int airBags;
 	private String model;
 	private String color;
+	private static Logger logger = Logger.getLogger(Car.class.getName());
 	public void setSeats(int seats)
 	{
 		this.seats = seats;
@@ -45,7 +50,7 @@ public class Scross extends Car
 	@Override
 	public void maintainance()
 	{
-		System.out.println("Maruti Scross Under Maintainance");
+		logger.log(Level.WARNING,"Maruti Scross Under Maintainance");
 	}
 
 }

@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author balamurugan
@@ -16,6 +18,7 @@ import java.util.HashMap;
  */
 public class SanityCheck
 {
+	Logger logger = Logger.getLogger(SanityCheck.class.getName());
 	public void check(Class classname) throws CustomException
 	{		
 		int passedCount=0,failedCount=0;
@@ -31,18 +34,18 @@ public class SanityCheck
 				Object[] paramValues = new Object[parameter.length];
 				
 				int i = 0;
-				System.out.println(methodIterator.getName());
+				logger.log(Level.INFO,methodIterator.getName());
 				for(Parameter param : parameter)
 				{
 					String classObj=param.getType().toString();
-//					System.out.println(classObj);
+//					logger.log(classObj);
 					String classTypeObj=param.getParameterizedType().toString();
 
 					if(param.getType().isPrimitive())
 					{
 						if(param.getType().toString().equals("boolean"))
 						{
-//							System.out.println("boolean");
+//							logger.log("boolean");
 							paramValues[i++] = false;
 						}
 						if(param.getType().toString().equals("int"))
@@ -58,7 +61,7 @@ public class SanityCheck
 					{
 						paramValues[i++] = null;
 					}
-//					System.out.println(param.getType());
+//					logger.log(param.getType());
 				}			
 				methodIterator.setAccessible(true);
 				try {
@@ -68,15 +71,15 @@ public class SanityCheck
 					if(e.getCause() instanceof CustomException)
 					{
 						passedCount++;
-						System.out.println("passed "+methodIterator.getName());
+						logger.log(Level.INFO,"passed "+methodIterator.getName());
 					}
 					else
 					{
 						failedCount++;
-						System.out.println("failed "+methodIterator.getName());
+						logger.log(Level.INFO,"failed "+methodIterator.getName());
 					}
 					
-//					System.out.println(e.getCause());
+//					logger.log(e.getCause());
 				}
 			}
 		}
@@ -84,8 +87,8 @@ public class SanityCheck
 		{
 			e.printStackTrace();
 		}
-		System.out.println(passedCount+" Cases Passed");
-		System.out.println(failedCount+" Failed Cases");
+		logger.log(Level.WARNING,passedCount+" Cases Passed");
+		logger.log(Level.SEVERE,failedCount+" Failed Cases");
 	}
 //	public static void main(String[] args)
 //	{
@@ -94,7 +97,7 @@ public class SanityCheck
 //			checkObj.check();
 //		} catch (CustomException e) {
 //			// TODO Auto-generated catch block
-//			System.out.println("passed");
+//			logger.log("passed");
 ////			main(args);
 //		}
 //	}

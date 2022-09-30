@@ -41,7 +41,6 @@ public class JdbcBeginner
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				throw new CustomException(e.getMessage());
 			}
 		}

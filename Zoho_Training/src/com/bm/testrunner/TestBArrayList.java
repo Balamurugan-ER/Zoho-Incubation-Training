@@ -3,6 +3,9 @@
  */
 package com.bm.testrunner;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.bm.util.*;
 import com.bm.framework.arraylist.BArrayList;
 import com.bm.framework.arraylist.Dog;
@@ -12,6 +15,7 @@ import com.bm.framework.arraylist.Dog;
 public class TestBArrayList {
 	static Scanner scan = new Scanner(System.in);
 	BArrayList obj = new BArrayList();
+	static Logger logger = Logger.getLogger(TestBArrayList.class.getName());
 	private boolean isValidArr(String[] array,int expLength) throws CustomException
 	{
 		Utilities.VALID.isNull(array);
@@ -30,8 +34,8 @@ public class TestBArrayList {
 	}
 	private void printAlDetails(ArrayList<?> arrayList) throws CustomException
 	{
-		System.out.println("ArrayList : "+arrayList);
-		System.out.println("Length : "+obj.getSize(arrayList));
+		logger.log(Level.INFO,"ArrayList : "+arrayList);
+		logger.log(Level.INFO,"Length : "+obj.getSize(arrayList));
 	}
 	private void mod1() throws CustomException
 	{
@@ -42,7 +46,7 @@ public class TestBArrayList {
 	{
 		int size=5;
 		ArrayList<String> arrayList = new ArrayList<String>();
-		System.out.println("Enter 5 Strings : ");
+		logger.log(Level.INFO,"Enter 5 Strings : ");
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -55,7 +59,7 @@ public class TestBArrayList {
 	{
 		int size=5;
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		System.out.println("Enter 5 Integers : ");
+		logger.log(Level.INFO,"Enter 5 Integers : ");
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -95,10 +99,10 @@ public class TestBArrayList {
 		obj.setValue(arrayList, args[1]);
 		obj.setValue(arrayList, args[2]);
 		obj.setValue(arrayList, args[3]);
-		System.out.println("Enter the String two Find : ");
+		logger.log(Level.INFO,"Enter the String two Find : ");
 		String string = scan.next();
 		int index = obj.indexOfObj(arrayList, string,true);	
-		System.out.println("Index : "+index);
+		logger.log(Level.INFO,"Index : "+index);
 		printAlDetails(arrayList);
 	}
 	private void mod7(String[] args) throws CustomException
@@ -113,7 +117,7 @@ public class TestBArrayList {
 		for (Iterator<String> iterator = arrayList.iterator(); iterator.hasNext();) 
 		{
 			Object object = (Object) iterator.next();
-			System.out.println(object);
+			logger.log(Level.INFO,"{0}",object);
 		}
 	}
 	private void mod8(String[] args) throws CustomException
@@ -123,11 +127,11 @@ public class TestBArrayList {
 		isValidArr(args,size);
 		obj.setValue(arrayList, args[0]);
 		obj.setValue(arrayList, args[1]);
-		System.out.println("Enter the index (0,1) Find String : ");
+		logger.log(Level.INFO,"Enter the index (0,1) Find String : ");
 		int index = scan.nextInt();
 		isValidInd(index,size);
 		String string = (String)obj.getValue(arrayList, index);	
-		System.out.println(string+" : at "+index);
+		logger.log(Level.INFO,string+" : at "+index);
 		printAlDetails(arrayList);
 	}
 	private void mod9(String[] args) throws CustomException
@@ -139,12 +143,12 @@ public class TestBArrayList {
 		{
 			obj.setValue(arrayList, args[i]);
 		}
-		System.out.println("Enter String To find in the ArrayList");
+		logger.log(Level.INFO,"Enter String To find in the ArrayList");
 		String string = scan.next();
-		System.out.println("Enter Boolean true for Find First Index\n False To Find Last Index");
+		logger.log(Level.INFO,"Enter Boolean true for Find First Index\n False To Find Last Index");
 		boolean first = scan.nextBoolean();
 		int index = obj.indexOfObj(arrayList,string,first);
-		System.out.println(index);
+		logger.log(Level.INFO,"{0}",index);
 		printAlDetails(arrayList);
 	}
 	private void mod10(String[] args) throws CustomException
@@ -156,10 +160,10 @@ public class TestBArrayList {
 		{
 			obj.setValue(arrayList, args[i]);
 		}
-		System.out.println("Enter Index to add String");
+		logger.log(Level.INFO,"Enter Index to add String");
 		int index = scan.nextInt();	
 		isValidInd(index,size);
-		System.out.println("Enter String To add in the ArrayList");
+		logger.log(Level.INFO,"Enter String To add in the ArrayList");
 		String string = scan.next();
 		obj.setValue(arrayList, string, index);
 		printAlDetails(arrayList);		
@@ -173,17 +177,17 @@ public class TestBArrayList {
 		{
 			obj.setValue(arrayList, args[i]);
 		}
-		System.out.println("Enter First index");
+		logger.log(Level.INFO,"Enter First index");
 		int fromIndex = scan.nextInt();	
 		isValidInd(fromIndex,size);
-		System.out.println("Enter Last index");
+		logger.log(Level.INFO,"Enter Last index");
 		int toIndex = scan.nextInt();	
 		isValidInd(toIndex,size);
 		List list = obj.createSubList(arrayList, fromIndex, toIndex);
 		ArrayList<String> newArrayList = new ArrayList<String>(list);
-		System.out.println("First ArrayList");
+		logger.log(Level.INFO,"First ArrayList");
 		printAlDetails(arrayList);
-		System.out.println("New ArrayList");
+		logger.log(Level.INFO,"New ArrayList");
 		printAlDetails(newArrayList);
 	}
 	private void mod12(String[] args) throws CustomException
@@ -203,11 +207,11 @@ public class TestBArrayList {
 		ArrayList<String> arrayList3 = new ArrayList<String>();
 		arrayList3.addAll(arrayList1);
 		arrayList3.addAll(arrayList2);
-		System.out.println("First ArrayList");
+		logger.log(Level.INFO,"First ArrayList");
 		printAlDetails(arrayList1);
-		System.out.println("Second ArrayList");
+		logger.log(Level.INFO,"Second ArrayList");
 		printAlDetails(arrayList2);
-		System.out.println("Third ArrayList");
+		logger.log(Level.INFO,"Third ArrayList");
 		printAlDetails(arrayList3);
 	}
 	private void mod13(String[] args) throws CustomException
@@ -227,11 +231,11 @@ public class TestBArrayList {
 		ArrayList<String> arrayList3 = new ArrayList<String>();
 		arrayList3.addAll(arrayList2);
 		arrayList3.addAll(arrayList1);
-		System.out.println("First ArrayList");
+		logger.log(Level.INFO,"First ArrayList");
 		printAlDetails(arrayList1);
-		System.out.println("Second ArrayList");
+		logger.log(Level.INFO,"Second ArrayList");
 		printAlDetails(arrayList2);
-		System.out.println("Third ArrayList");
+		logger.log(Level.INFO,"Third ArrayList");
 		printAlDetails(arrayList3);
 	}
 	private void mod14(String[] args) throws CustomException
@@ -245,9 +249,9 @@ public class TestBArrayList {
 			arrayList.add(Integer.parseInt(args[i]));
 		}
 		printAlDetails(arrayList);
-		System.out.println("Enter True to Delete an index \nEnter False to Delete an element");
+		logger.log(Level.INFO,"Enter True to Delete an index \nEnter False to Delete an element");
 		index = scan.nextBoolean();
-		System.out.println("Enter Number/index");
+		logger.log(Level.INFO,"Enter Number/index");
 		int number = scan.nextInt();
 		
 		if(index)
@@ -271,7 +275,7 @@ public class TestBArrayList {
 			arrayList.add(Long.parseLong(args[i]));
 		}
 		printAlDetails(arrayList);
-		System.out.println("Enter the From & To Index to Delete Values");
+		logger.log(Level.INFO,"Enter the From & To Index to Delete Values");
 		int fromIndex = scan.nextInt();
 		int toIndex = scan.nextInt();
 		isValidInd(fromIndex,size);
@@ -285,7 +289,7 @@ public class TestBArrayList {
 		ArrayList<String> arrayList2 = new ArrayList<String>();
 		int firstLen = 5,secondLen = 3,total=firstLen+secondLen;
 		isValidArr(args,total);
-		System.out.println("Enter True/false if need to remove presented element or not");
+		logger.log(Level.INFO,"Enter True/false if need to remove presented element or not");
 		boolean present = scan.nextBoolean();
 		
 		for(int i=0;i<firstLen;i++)
@@ -323,42 +327,42 @@ public class TestBArrayList {
 			obj.setValue(arrayList, args[i]);
 		}
 		printAlDetails(arrayList);
-		System.out.println("Enter String to Find in the List");
+		logger.log(Level.INFO,"Enter String to Find in the List");
 		String string = scan.next();
 		boolean present = obj.isPresent(arrayList, string);
-		System.out.println(present);
+		logger.log(Level.INFO,"{0}",present);
 		printAlDetails(arrayList);
 		
 	}
 	public static void main(String[] args) throws CustomException
 	{
 		TestBArrayList test = new TestBArrayList();
-		System.out.println("1.Create ArrayList and Print Length");
-		System.out.println("2.Add 5 String Objects & Print it and Length");
-		System.out.println("3.Add 5 Integer Print Elements and length");
-		System.out.println("4.Add Customs Objects");
-		System.out.println("5.Add 2 Integers,3 Strings,2 Cust Objects");
-		System.out.println("6.Find the index of Strings in ArrayList 4 Elements");
-		System.out.println("7.Add 5 Strings - Print Using Iterator");
-		System.out.println("8.String found by index 2 Elements");
-		System.out.println("9.String to Index Find First/Last");
-		System.out.println("10.Insert String at Given Index");
-		System.out.println("11.Create SubList of given Indexes");
-		System.out.println("12.Create 3rd ArrayList using 1st & 2nd ArrayList");
-		System.out.println("13.Create 3rd ArrayList using 2nd & 1st ArrayList");
-		System.out.println("14.Decimal Array List, Delete the Given elements");
-		System.out.println("15.Long ArrayList deletes elements with range");
-		System.out.println("16.Two ArrayList deletes first array list with condition");
-		System.out.println("17.Add 10 Long And removes all ");
-		System.out.println("18.Search a Element in a list ");
-		System.out.println("0.Exit");
-		System.out.println("1000.Sanity Check");
+		logger.log(Level.INFO,"Enter Your choice\n"
+				+ "1.Create ArrayList and Print Length\n"
+				+ "2.Add 5 String Objects & Print it and Length\n"
+				+ "3.Add 5 Integer Print Elements and length\n"
+				+ "4.Add Customs Objects\n"
+				+ "5.Add 2 Integers,3 Strings,2 Cust Objects\n"
+				+ "6.Find the index of Strings in ArrayList 4 Elements\n"
+				+ "7.Add 5 Strings - Print Using Iterator\n"
+				+ "8.String found by index 2 Elements\n"
+				+ "9.String to Index Find First/Last\n"
+				+ "10.Insert String at Given Index\n"
+				+ "11.Create SubList of given Indexes\n"
+				+ "12.Create 3rd ArrayList using 1st & 2nd ArrayList\n"
+				+ "13.Create 3rd ArrayList using 2nd & 1st ArrayList\n"
+				+ "14.Decimal Array List, Delete the Given elements\n"
+				+ "15.Long ArrayList deletes elements with range\n"
+				+ "16.Two ArrayList deletes first array list with condition\n"
+				+ "17.Add 10 Long And removes all\n"
+				+ "18.Search a Element in a list\n"
+				+ "0.Exit\n"
+				+ "1000.Sanity Check");
 		try
 		{	
 			boolean flag = true;
 			while(flag)
 			{
-				System.out.println("Enter Your choice");
 				int n = scan.nextInt();
 				switch(n)
 				{
@@ -470,17 +474,17 @@ public class TestBArrayList {
 		}
 		catch(CustomException e)
 		{
-			System.out.println(e.getMessage());
+			logger.log(Level.SEVERE,e.getMessage());
 			e.printStackTrace();
 		}
 		catch(InputMismatchException e)
 		{
-			System.out.println("Invalid input type");
+			logger.log(Level.SEVERE,"Invalid input type");
 			e.printStackTrace();
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("String Argument Found Instead of Number");
+			logger.log(Level.SEVERE,"String Argument Found Instead of Number");
 			e.printStackTrace();
 		}
 	}

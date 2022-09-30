@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author inc5
@@ -18,7 +21,9 @@ import java.util.ArrayList;
 import com.bm.framework.jdbc.Employee;
 public class TrySerialization 
 {
+	private Logger logger = Logger.getLogger(TrySerialization.class.getName());
 	private ArrayList<Employee> employees = new ArrayList<>();
+	private static Scanner scan = new Scanner(System.in);
 	public void addDummyValues()
 	{		
 		int n = 10;
@@ -35,48 +40,50 @@ public class TrySerialization
 	}
 	public void displayValue()
 	{
-		int n=10;
+		logger.log(Level.INFO, "Enter Number");
+		int n= scan.nextInt();
+		
 		for(int i=0;i<n;i++)
 		{
-			System.out.println(employees.get(i));
+			logger.log(Level.INFO,"{0}",employees.get(i));
 		}
 	}
 	public void serializeObject()
 	{
-		try (FileOutputStream fileStream = new FileOutputStream("arrayList.ser");
+		String name = scan.next();
+		try (FileOutputStream fileStream = new FileOutputStream(name);
 				ObjectOutputStream os = new ObjectOutputStream(fileStream);)
 		{
 			os.writeObject(employees);
-			System.out.println("Serialization completed");
+			logger.log(Level.INFO,"Serialization completed");
 		}
 		catch (FileNotFoundException e) 
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage());
 		}
 	}
 	public void deSerializeObject()
 	{
-		try(FileInputStream fileStream = new FileInputStream("arrayList.ser");
+		logger.log(Level.INFO, "Enter File Name to Deserialize");
+		String name = scan.next();
+		try(FileInputStream fileStream = new FileInputStream(name);
 				ObjectInputStream os = new ObjectInputStream(fileStream);)
 		{
 			Object obj = os.readObject();
 			ArrayList<Employee> empList = (ArrayList<Employee>) obj;
-			System.out.println("Object deserialized Successfully");
+			logger.log(Level.INFO,"Object deserialized Successfully");
 			displayValue();
 		} 
-		catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		catch (FileNotFoundException e) 
+		{
+			logger.log(Level.SEVERE,e.getMessage());
+		} 
+		catch (IOException e) {
+			logger.log(Level.SEVERE,e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log(Level.SEVERE,e.getMessage());
 		}
 	}
 }

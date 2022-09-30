@@ -1,4 +1,8 @@
 package com.bm.framework.inheritance;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * @author Balamurugan
  *
@@ -16,6 +20,7 @@ public class Car {
 	}
 	private int yearOfMake;
 	private String engineNumber;
+	private static Logger logger = Logger.getLogger(Car.class.getName());
 	public enum Type
 	{
 		SEDAN,
@@ -49,7 +54,7 @@ public class Car {
 	}
 	public void maintainance()
 	{
-		System.out.println("Car Under Maintainance");
+		logger.log(Level.WARNING,"Car Under Maintainance");
 	}
 }
 

@@ -5,6 +5,8 @@ package com.bm.testrunner;
 
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.bm.framework.customhashmap.BetaMap;
 
@@ -13,6 +15,7 @@ import com.bm.framework.customhashmap.BetaMap;
  *
  */
 public class TestCustomHashmap<K,V> {
+	private static Logger logger = Logger.getLogger(TestCustomHashmap.class.getName());
 	private BetaMap<K,V> map = new BetaMap<>();
 	public void push(K key,V value)
 	{
@@ -20,7 +23,7 @@ public class TestCustomHashmap<K,V> {
 	}
 	public void getValue(K key)
 	{
-		System.out.println(map.getValue(key));
+		logger.log(Level.INFO,"{0}",map.getValue(key));
 	}
 	public void printMap()
 	{
@@ -28,16 +31,16 @@ public class TestCustomHashmap<K,V> {
 	}
 	public static void main(String[] args) {
 		TestCustomHashmap<String, String> test = new TestCustomHashmap<>();
-		System.out.println("1.Add key and value to map");
-		System.out.println("2.Enter key to find value");
-		System.out.println("3.Print Map");
-		System.out.println("0.Exit");
+		logger.log(Level.INFO,"1.Add key and value to map\n"
+				+ "2.Enter key to find value\n"
+				+ "3.Print Map\n"
+				+ "0.Exit");
 		try(Scanner scan = new Scanner(System.in))
 		{	
 			boolean flag = true;
 			while(flag)
 			{
-				System.out.println("Enter Your choice");
+				logger.log(Level.INFO,"Enter Your choice");
 				int n = scan.nextInt();
 				switch(n)
 				{
@@ -48,7 +51,7 @@ public class TestCustomHashmap<K,V> {
 				}
 				case 1: 
 				{
-					System.out.println("Enter Key and Value");
+					logger.log(Level.INFO,"Enter Key and Value");
 					String key = scan.next();
 					String value = scan.next();
 					test.push(key, value);
@@ -56,7 +59,7 @@ public class TestCustomHashmap<K,V> {
 				}
 				case 2:
 				{
-					System.out.println("Enter Key and Value");
+					logger.log(Level.INFO,"Enter Key and Value");
 					String key = scan.next();
 					test.getValue(key);
 					break;
@@ -74,12 +77,12 @@ public class TestCustomHashmap<K,V> {
 		}
 		catch(InputMismatchException e)
 		{
-			System.out.println("Invalid input type");
+			logger.log(Level.SEVERE,"Invalid input type");
 			e.printStackTrace();
 		}
 		catch(NumberFormatException e)
 		{
-			System.out.println("String Argument Found Instead of Number");
+			logger.log(Level.SEVERE,"String Argument Found Instead of Number");
 			e.printStackTrace();
 		}
 	}

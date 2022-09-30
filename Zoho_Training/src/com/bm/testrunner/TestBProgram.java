@@ -23,12 +23,13 @@ public class TestBProgram
 		//ConsoleHandler handler = new ConsoleHandler();
 		//handler.setFormatter(new SimpleFormatter());
 		//logger.addHandler(handler);
-		//handler.setLevel(Level.ALL);
+		//logger.setLevel(Level.FINE);
 		Scanner scan = new Scanner(System.in);		
 		boolean flag = true;
 		while(flag)
 		{
-			logger.log(Level.INFO, "Enter Your choice\n1.Writing content in files\n"
+			logger.log(Level.INFO, "Enter Your choice\n"
+					+ "1.Writing content in files\n"
 					+ "2.Storing properties\n"
 					+ "3.Finding properties value for the key\n"
 					+ "4.Calling custom constructor and print object\n"
@@ -37,10 +38,19 @@ public class TestBProgram
 					+ "7.Reflection - Invoking POJO class default constructor and custom constructor\n"
 					+ "8.Enum with values\n"
 					+ "9.Singleton class\n"
-					+ "10.Get Current Date Time\n1000.Sanity Check\n"
+					+ "10.Get Current Date Time\n"
+					+ "1000.Sanity Check\n"
 					+ "0.Exit");
-			int n = Integer.parseInt(scan.nextLine());
-			switch (n)
+			int choice = -1;
+			try
+			{
+				choice = Integer.parseInt(scan.nextLine());
+			}
+			catch(NumberFormatException e)
+			{
+				logger.log(Level.SEVERE, "EXCEPTION {0}",e.getMessage());
+			}
+			switch (choice)
 			{
 			case 0:
 			{
@@ -79,7 +89,7 @@ public class TestBProgram
 				logger.log(Level.INFO,"Enter path to Store properties ex(/home/inc5/myDir/)");
 				String path = scan.nextLine();
 				logger.log(Level.INFO,"Enter No of Entries");
-				int limit = scan.nextInt();
+				int limit = Integer.parseInt(scan.nextLine());
 				scan.nextLine();
 				logger.log(Level.INFO,"Provide pair of keys and values");
 				for(int i=1;i<=limit;i++)
@@ -125,7 +135,10 @@ public class TestBProgram
 			case 5:
 			{
 				//pojo with toString() --> using custom constructor
-				Fruits fruit = new Fruits("Apple",10);
+				logger.log(Level.INFO, "Enter Fruit Name & Fruit Count");
+				String fruitName = scan.nextLine();
+				int fruitCount = Integer.parseInt(scan.nextLine());
+				Fruits fruit = new Fruits(fruitName,fruitCount);
 				logger.log(Level.INFO,"Printing Fruits Object {0}",fruit);
 				break;
 			}
@@ -133,8 +146,11 @@ public class TestBProgram
 			{
 				//pojo --> using default constructor
 				Fruits fruit = new Fruits();
-				fruit.setFruitName("WaterMelon");
-				fruit.setNoOfFruits(10);
+				logger.log(Level.INFO, "Enter Fruit Name & Fruit Count");
+				String fruitName = scan.nextLine();
+				int fruitCount = Integer.parseInt(scan.nextLine());
+				fruit.setFruitName(fruitName);
+				fruit.setNoOfFruits(fruitCount);
 				logger.log(Level.INFO,"Fruits default Constructor Object {0}",fruit);
 				break;
 			}
@@ -207,7 +223,7 @@ public class TestBProgram
 				CarSingleton carObj2 = CarSingleton.INSTANCE;
 				logger.log(Level.INFO,carObj1.getPatternName());
 				logger.log(Level.INFO,carObj2.getPatternName());
-				//logger.log(Level.INFO,carObj1 == carObj2);
+				logger.log(Level.INFO,"{0}",carObj1 == carObj2);
 				break;
 			}
 			case 10:
@@ -271,7 +287,6 @@ public class TestBProgram
 		}
 		scan.close();
 		logger.exiting(TestBProgram.class.getName().toString(), "Main Method");
-		
 	}
 
 }

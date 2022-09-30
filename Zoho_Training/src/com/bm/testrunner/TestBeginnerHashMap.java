@@ -6,6 +6,8 @@ import com.bm.framework.hashmap.BeginnerHashMap;
 import com.bm.framework.hashmap.Remote;
 import com.bm.util.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * @author Balamurugan
  */
@@ -13,10 +15,11 @@ public class TestBeginnerHashMap {
 	BeginnerHashMap begin = new BeginnerHashMap();
 	HashMap<String,String> defaultHmap = new HashMap<String,String>();
 	private static Scanner scan = new Scanner(System.in);
+	private static Logger logger = Logger.getLogger(TestBeginnerHashMap.class.getName());
 	private void printMap(Map map) throws CustomException
 	{
-		System.out.println(map);
-		System.out.println(begin.getMapSize(map));
+		logger.log(Level.INFO,"{0}",map);
+		logger.log(Level.INFO,"{0}",begin.getMapSize(map));
 	}
 
 	private HashMap getDefaultHmap() throws CustomException
@@ -37,9 +40,8 @@ public class TestBeginnerHashMap {
 		int n=3;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter String Key   : ");
+			logger.log(Level.INFO,"Enter String Key & Value: ");
 			String key = scan.next();
-			System.out.println("Enter String Value : ");
 			String value = scan.next();
 			begin.addEntry(map, key, value);
 		}
@@ -51,9 +53,8 @@ public class TestBeginnerHashMap {
 		int n=3;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter Integer Key 	: ");
+			logger.log(Level.INFO,"Enter Integer Key & Integer Value: ");
 			int key = scan.nextInt();
-			System.out.println("Enter Integer Value : ");
 			int value = scan.nextInt();
 			begin.addEntry(map, key, value);
 		}
@@ -65,9 +66,8 @@ public class TestBeginnerHashMap {
 		int n=3;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter String Key 	: ");
+			logger.log(Level.INFO,"Enter String Key & Integer Value: ");
 			String key = scan.next();
-			System.out.println("Enter Integer Value : ");
 			int value = scan.nextInt();
 			begin.addEntry(map, key, value);
 		}
@@ -79,9 +79,9 @@ public class TestBeginnerHashMap {
 		int n=3;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter String Key 	: ");
+			logger.log(Level.INFO,"Enter String Key : ");
 			String key = scan.next();
-			System.out.println("Enter Number of Buttons Value : ");
+			logger.log(Level.INFO,"Enter Number of Buttons Value : ");
 			String value = scan.next();
 			begin.addEntry(map, key, new Remote(value));
 		}
@@ -93,9 +93,9 @@ public class TestBeginnerHashMap {
 		int n=2;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter String Key   : ");
+			logger.log(Level.INFO,"Enter String Key   : ");
 			String key = scan.next();
-			System.out.println("Enter String Value : ");
+			logger.log(Level.INFO,"Enter String Value : ");
 			String value = scan.next();
 			begin.addEntry(map, key, value);
 		}
@@ -108,9 +108,9 @@ public class TestBeginnerHashMap {
 		int n=2;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter String Key   : ");
+			logger.log(Level.INFO,"Enter String Key   : ");
 			String key = scan.next();
-			System.out.println("Enter String Value : ");
+			logger.log(Level.INFO,"Enter String Value : ");
 			String value = scan.next();
 			begin.addEntry(map, key, value);
 		}
@@ -121,11 +121,11 @@ public class TestBeginnerHashMap {
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		System.out.println("Enter true/false to value/key search : ");
+		logger.log(Level.INFO,"Enter true/false to value/key search : ");
 		boolean value = scan.nextBoolean();
-		System.out.println("Enter key/value to find");
+		logger.log(Level.INFO,"Enter key/value to find");
 		String Search = scan.next();
-		System.out.println(begin.checkKey(defaultHmap, Search, value));
+		logger.log(Level.INFO,"{0}",begin.checkKey(defaultHmap, Search, value));
 	}
 	private void mod9() throws CustomException
 	{
@@ -134,7 +134,7 @@ public class TestBeginnerHashMap {
 		int n=3;
 		for(int i=0;i<n;i++)
 		{
-			System.out.println("Enter value for key and updated Value: ");
+			logger.log(Level.INFO,"Enter value for key and updated Value: ");
 			String key = scan.next();
 			String value = scan.next();
 			begin.addEntry(defaultHmap,key,value);
@@ -145,39 +145,39 @@ public class TestBeginnerHashMap {
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		System.out.println("Enter key to get value associated with it.");
+		logger.log(Level.INFO,"Enter key to get value associated with it.");
 		String key = scan.next();
-		System.out.println("Enter Default value if key not found");
+		logger.log(Level.INFO,"Enter Default value if key not found");
 		String dValue = scan.next();
-		System.out.println(begin.getValue(defaultHmap, key,dValue));
+		logger.log(Level.INFO,"{0}",begin.getValue(defaultHmap, key,dValue));
 	}
 	private void mod11() throws CustomException
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		System.out.println("Enter key to remove.");
+		logger.log(Level.INFO,"Enter key to remove.");
 		String key = scan.next();
-		System.out.println(begin.removeKey(defaultHmap, key));
+		logger.log(Level.INFO,"{0}",begin.removeKey(defaultHmap, key));
 		printMap(defaultHmap);
 	}
 	private void mod12() throws CustomException
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		System.out.println("Enter key to remove");
+		logger.log(Level.INFO,"Enter key to remove");
 		String key = scan.next();
-		System.out.println("Enter Value to remove");
+		logger.log(Level.INFO,"Enter Value to remove");
 		String value = scan.next();
-		System.out.println(begin.removeEntry(defaultHmap, key,value));
+		logger.log(Level.INFO,"{0}",begin.removeEntry(defaultHmap, key,value));
 		printMap(defaultHmap);
 	}
 	private void mod13() throws CustomException
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		System.out.println("Enter key to replace");
+		logger.log(Level.INFO,"Enter key to replace");
 		String key = scan.next();
-		System.out.println("Enter Value to replace");
+		logger.log(Level.INFO,"Enter Value to replace");
 		String value = scan.next();
 		begin.replaceValues(defaultHmap, key, value);
 		printMap(defaultHmap);
@@ -186,11 +186,11 @@ public class TestBeginnerHashMap {
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		System.out.println("Enter key to replace");
+		logger.log(Level.INFO,"Enter key to replace");
 		String key = scan.next();
-		System.out.println("Enter new Value to replace");
+		logger.log(Level.INFO,"Enter new Value to replace");
 		String newValue = scan.next();
-		System.out.println("Enter Old Value to replace");
+		logger.log(Level.INFO,"Enter Old Value to replace");
 		String oldValue = scan.next();
 		begin.replaceValues(defaultHmap, key, newValue,oldValue);
 		printMap(defaultHmap);
@@ -200,7 +200,7 @@ public class TestBeginnerHashMap {
 		getDefaultHmap();
 		for(String i : defaultHmap.keySet())
 		{
-			System.out.println(i+"-"+begin.getValue(defaultHmap, i));
+			logger.log(Level.INFO,"-"+begin.getValue(defaultHmap, i));
 		}
 	}
 	private void mod16() throws CustomException
@@ -215,33 +215,33 @@ public class TestBeginnerHashMap {
 		TestBeginnerHashMap test = new TestBeginnerHashMap();
 		
 			boolean flag = true;
-			System.out.println("1.To Create HashMap and Print Size");
-			System.out.println("2.Add String Key and String Value");
-			System.out.println("3.Add Integer Key and Integer Value");
-			System.out.println("4.Add String Key and Integer Value");
-			System.out.println("5.Create String Key and Remote Object Value");
-			System.out.println("6.Enter Two Entries with one Null value");
-			System.out.println("7.Enter Two Entries with one Null Key");
-			System.out.println("8.Search Map Elements by key/value");
-			System.out.println("9.Update all the values");
-			System.out.println("10.Get Values using keys");
-			System.out.println("11.Enter Key to remove");
-			System.out.println("12.Enter key and value to remove");
-			System.out.println("13.Replace key with value");
-			System.out.println("14.Replace key with value only matches old value");
-			System.out.println("15.Printing the Hashmap");
-			System.out.println("16.Remove all Entries");
-			System.out.println("0.Exit");
-			System.out.println("1000.Sanity Check");
+			logger.log(Level.INFO,"1.To Create HashMap and Print Size\n"
+					+ "2.Add String Key and String Value\n"
+					+ "3.Add Integer Key and Integer Value\n"
+					+ "4.Add String Key and Integer Value\n"
+					+ "5.Create String Key and Remote Object Value\n"
+					+ "6.Enter Two Entries with one Null value\n"
+					+ "7.Enter Two Entries with one Null Key\n"
+					+ "8.Search Map Elements by key/value\n"
+					+ "9.Update all the values\n"
+					+ "10.Get Values using keys\n"
+					+ "11.Enter Key to remove\n"
+					+ "12.Enter key and value to remove\n"
+					+ "13.Replace key with value\n"
+					+ "14.Replace key with value only matches old value\n"
+					+ "15.Printing the Hashmap\n"
+					+ "16.Remove all Entries\n"
+					+ "0.Exit\n"
+					+ "1000.Sanity Check\n"
+					+ "Enter Your choice : ");
 			try 
 			{
 			while(flag)
 			{
-				System.out.println("Enter Your choice : ");
 				int n = scan.nextInt();
 				if(n!=1000 && n<0 || n>16)
 				{
-					System.out.println("Invalid Option");
+					logger.log(Level.INFO,"Invalid Option");
 					flag=false;
 					break;
 				}
@@ -342,12 +342,12 @@ public class TestBeginnerHashMap {
 		}
 		catch(CustomException e)
 		{
-			System.out.println(e);
+			logger.log(Level.SEVERE,"{0}",e);
 			e.printStackTrace();
 		}
 		catch(InputMismatchException e)
 		{
-			System.out.println("Invalid Input");
+			logger.log(Level.SEVERE,"Invalid Input");
 			e.printStackTrace();
 		}
 	}

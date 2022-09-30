@@ -14,13 +14,16 @@ public class ExtendedThread extends Thread
 		super(name);
 		setFlag(true);
 	}
-	public boolean getFlag() {
+	public boolean getFlag()
+	{
 		return flag;
 	}
-	public void setFlag(boolean flag) {
+	public void setFlag(boolean flag)
+	{
 		this.flag = flag;
 	}
-	public long getMilliSeconds() {
+	public long getMilliSeconds() 
+	{
 		return milliSeconds;
 	}
 	public void setMilliSeconds(long milliSeconds) {
@@ -29,14 +32,13 @@ public class ExtendedThread extends Thread
 	@Override
 	public void run()
 	{
-		
-		int count =0;
-		while(getFlag())
+		int count = 0;
+		while(flag)
 		{
 			System.out.println("counter : "+count++);
 			try
 			{
-				if(getMilliSeconds() != 0)
+				if(milliSeconds != 0)
 				{
 					makeSleep(getMilliSeconds());
 				}

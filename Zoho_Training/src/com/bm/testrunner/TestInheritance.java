@@ -4,58 +4,92 @@
 package com.bm.testrunner;
 
 
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.bm.framework.inheritance.*;
 import com.bm.framework.inheritance.Car.Type;
 /**
  * @author Balamurugan
  *
  */
-public class TestInheritance {
+public class TestInheritance 
+{
 
+	private static Logger logger = Logger.getLogger(TestInheritance.class.getName());
+	private static Scanner scan = new Scanner(System.in);
 	private void testMod1()
 	{
 		Swift swiftObj = new Swift();
-		swiftObj.setAirBags(3);;
-		swiftObj.setColor("Red");
-		swiftObj.setModel("Swift-Model-1");
-		swiftObj.setSeats(6);
-		System.out.println("Model Name    : "+swiftObj.getModel());
-		System.out.println("Car Color     : "+swiftObj.getColor());
-		System.out.println("No Of Seats   : "+swiftObj.getSeats());
-		System.out.println("No Of AirBags : "+swiftObj.getAirBags());
+		logger.log(Level.INFO, "Enter Number of AirBags \nEnter Colour\nEnter Model\nEnter number Of Seats");
+		int airBags = scan.nextInt();
+		String color = scan.next();
+		String model = scan.next();
+		int seats = scan.nextInt();
+		swiftObj.setAirBags(airBags);
+		swiftObj.setColor(color);
+		swiftObj.setModel(model);
+		swiftObj.setSeats(seats);
+		logger.log(Level.INFO,"Model Name    : "+swiftObj.getModel());
+		logger.log(Level.INFO,"Car Color     : "+swiftObj.getColor());
+		logger.log(Level.INFO,"No Of Seats   : "+swiftObj.getSeats());
+		logger.log(Level.INFO,"No Of AirBags : "+swiftObj.getAirBags());
 	}
 	private void testMod2()
 	{
 		Scross scrossObj = new Scross();
-		scrossObj.setAirBags(4);
-		scrossObj.setColor("Black");
-		scrossObj.setEngineNumber("1234567889");
-		scrossObj.setModel("Scross-Model-1");
-		scrossObj.setSeats(8);
-		scrossObj.setType(Type.HATCHBACK);
+		logger.log(Level.INFO, "Enter Num of AirBags\nEnter Colour \n Enter Engine Number \n Enter Number of Seats\n"
+				+ "Enter option from 1-3 to choose a car type\n"
+				+ "\n Enter year of made");
+		int airBags = scan.nextInt();
+		String color = scan.next();
+		String engineNumber = scan.next();
+		String model = scan.next();
+		int noOfSeats = scan.nextInt();
+		int carType = scan.nextInt();
+		int year = scan.nextInt();
+		scrossObj.setAirBags(airBags);
+		scrossObj.setColor(color);
+		scrossObj.setEngineNumber(engineNumber);
+		scrossObj.setModel(model);
+		scrossObj.setSeats(noOfSeats);
+		if(carType == 1)
+		{
+			scrossObj.setType(Car.Type.HATCHBACK);
+		}
+		if(carType == 2)
+		{
+			scrossObj.setType(Car.Type.SEDAN);
+		}
+		else
+		{
+			scrossObj.setType(Car.Type.SEDAN);
+		}		
 		scrossObj.setYearOfMake(2000);
-		System.out.println("Model Name    	  : "+scrossObj.getModel());
-		System.out.println("Model Launched At : "+scrossObj.getYearOfMake());
-		System.out.println("Car Type          : "+scrossObj.getType());
-		System.out.println("Car Engine Number : "+scrossObj.getEngineNumber());
-		System.out.println("Car Color         : "+scrossObj.getColor());
-		System.out.println("No Of Seats       : "+scrossObj.getSeats());
-		System.out.println("No Of AirBags     : "+scrossObj.getAirBags());
+		logger.log(Level.INFO,"Model Name : "+scrossObj.getModel()+"\n"
+				+ "Model Launched At : "+scrossObj.getType()+"\n"
+				+ "Year of Make : "+scrossObj.getYearOfMake()+"\n"
+				+ "Car Type : "+scrossObj.getType()+"\n"
+				+ "Car Engine Number : "+scrossObj.getEngineNumber()+"\n"
+				+ "Car Color : "+scrossObj.getColor()+"\n"
+				+ "No of Seats : "+scrossObj.getSeats()+"\n"
+				+ "No Of AirBags : "+scrossObj.getAirBags());
 	}
 	private static void carsWelcome(Car car)
 	{
-		System.out.println("Car objects are Welcome");
+		logger.log(Level.INFO,"Car objects are Welcome");
 	}
 	private void testMod3()
 	{
 		Swift swiftObj = new Swift();
-		System.out.println("Swift Obj Invoking CarsWelcome()");
+		logger.log(Level.INFO,"Swift Obj Invoking CarsWelcome()");
 		TestInheritance.carsWelcome(swiftObj);
 		XUV xuvObj = new XUV();
-		System.out.println("XUV Obj Invoking CarsWelcome()");
+		logger.log(Level.INFO,"XUV Obj Invoking CarsWelcome()");
 		TestInheritance.carsWelcome(xuvObj);
 		Scross scrossObj = new Scross();
-		System.out.println("Scross Obj Invoking CarsWelcome()");
+		logger.log(Level.INFO,"Scross Obj Invoking CarsWelcome()");
 		TestInheritance.carsWelcome(scrossObj);
 	}
 	private static void UpdatedCarsWelcome(Car car)
@@ -68,15 +102,15 @@ public class TestInheritance {
 		//		scrossObj = (Scross)car;
 		if(car.getClass() == swiftObj.getClass())
 		{
-			System.out.println("Welcome Hatch ");
+			logger.log(Level.INFO,"Welcome Hatch ");
 		}
 		if(car.getClass() == xuvObj.getClass())
 		{
-			System.out.println("Welcome XUV");
+			logger.log(Level.INFO,"Welcome XUV");
 		}
 		if(car.getClass() == scrossObj.getClass())
 		{
-			System.out.println("Welcome Sedan");
+			logger.log(Level.INFO,"Welcome Sedan");
 		}
 
 	}
@@ -91,7 +125,7 @@ public class TestInheritance {
 	}
 	private static void SwiftWelcome(Swift swiftObj) 
 	{
-		System.out.println("Welcome Swift");
+		logger.log(Level.INFO,"Welcome Swift");
 	}
 	private void testMod5()
 	{
@@ -147,6 +181,5 @@ public class TestInheritance {
 		obj.testMod8();
 		obj.testMod9();
 	}
-
 }
 
