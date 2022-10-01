@@ -6,6 +6,7 @@ package com.bm.testrunner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -182,7 +183,7 @@ public class TestRegularExpressions
 				{
 					logger.log(Level.SEVERE, "EXCEPTION {} ",e.getMessage());
 				}
-				
+
 				break;
 			}
 			case 8:
@@ -209,7 +210,7 @@ public class TestRegularExpressions
 				{
 					logger.log(Level.SEVERE, "EXCEPTION {} ",e.getMessage());
 				}
-				
+
 				break;
 			}
 			case 9:
@@ -224,20 +225,25 @@ public class TestRegularExpressions
 					logger.log(Level.INFO, "Enter String : ");
 					list1.add(scan.nextLine());
 				}
-				boolean result = false;
+				logger.log(Level.INFO,"Enter no of Strings to add");
+				int limit2 = scan.nextInt();
+				scan.nextLine();
+				List<String> list2 = new ArrayList<>();
+				for(int i=0;i<limit2;i++)
+				{
+					logger.log(Level.INFO, "Enter String : ");
+					list2.add(scan.nextLine());
+				}
 				try 
 				{
-					for(int i =0;i<limit;i++)
-					{
-						result = RegularExpressions.stringCountRange(list1.get(i),6);
-						logger.log(Level.INFO,"Match Result : {0}" ,result);
-					}
-				} 
+					Map<String,Integer> result = RegularExpressions.matchFinder(list1, list2);
+					logger.log(Level.INFO, "{0}",result);
+				}
 				catch (CustomException e) 
 				{
-					logger.log(Level.SEVERE, "EXCEPTION {} ",e.getMessage());
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
 				break;
 			}
 			case 10:
@@ -259,12 +265,9 @@ public class TestRegularExpressions
 			case 11:
 			{
 				logger.log(Level.INFO,"Enter html codes to Verify");
-//				String html = scan.nextLine();
-				String html = "<html>"
-						+ "<p>"
-						+ "hellocodes"
-						+ "</p>"
-						+ "</html>";
+				//				String html = scan.nextLine();
+				String html = "<p>The <code>President</code> of India is the first\n"
+						+ "citizen of our country.</p>";
 				Matcher result = null;
 				int index =0;
 				try 
@@ -273,7 +276,7 @@ public class TestRegularExpressions
 					while(result.find(index))
 					{
 						logger.log(Level.INFO,"Match Result : {0}\n" ,result.group());
-						index = result.regionEnd();
+						index = result.end();
 					}
 				} 
 				catch (CustomException e) 

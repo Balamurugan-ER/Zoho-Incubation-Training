@@ -3,6 +3,9 @@
  */
 package com.bm.framework.regex;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -27,7 +30,7 @@ public class RegularExpressions
 	public static boolean alphaNumericValidator(String alphaNumericChars) throws CustomException
 	{
 		Utilities.VALID.isNull(alphaNumericChars);
-		String alphaNumPattern = "^[a-z{0,1}A-Z{0,1}0-9{0,1}]+$";
+		String alphaNumPattern = "[a-zA-Z0-9]*";
 		return Pattern.matches(alphaNumPattern, alphaNumericChars);
 	}
 	public static boolean stringStarts(String givenString,String matchString) throws CustomException
@@ -78,9 +81,28 @@ public class RegularExpressions
 	public static Matcher tagfinder(String htmlLines) throws CustomException
 	{
 		Utilities.VALID.isNull(htmlLines);
-		String tagPattern = "^<.*>$";
+		String tagPattern = "</*[a-zA-Z0-9]*>";
 		Pattern pattern = Pattern.compile(tagPattern);
 		Matcher matcher = pattern.matcher(htmlLines);
 		return matcher;
+	}
+	public static Map matchFinder(List<String> list1,List<String> list2) throws CustomException
+	{
+		Map<String,Integer> map = new HashMap<>();
+		int length = list2.size();
+		for(int i = 0;i< length;i++)
+		{
+			for(String pattern : list1)
+			{
+				Pattern matchPattern = Pattern.compile(list2.get(i));
+				Matcher matcher = matchPattern.matcher(pattern);
+				if(matcher.find())
+				{
+					String matchedStr = matcher.group();
+					map.put(matchedStr, list1.indexOf(matchedStr));
+				}
+			}
+		}
+		return map;
 	}
 }
