@@ -44,9 +44,9 @@ public class TestBArrayList {
 	}
 	private void mod2(String[] args) throws CustomException
 	{
-		int size=5;
+		int size=scan.nextInt();
 		ArrayList<String> arrayList = new ArrayList<String>();
-		logger.log(Level.INFO,"Enter 5 Strings : ");
+		logger.log(Level.INFO,"Enter n Strings : ");
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -57,9 +57,9 @@ public class TestBArrayList {
 	}
 	private void mod3(String[] args) throws CustomException
 	{
-		int size=5;
+		int size= scan.nextInt();
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		logger.log(Level.INFO,"Enter 5 Integers : ");
+		logger.log(Level.INFO,"Enter n Integers : ");
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -69,7 +69,7 @@ public class TestBArrayList {
 	}
 	private void mod4(String[] args) throws CustomException
 	{
-		int size=2;
+		int size=scan.nextInt();
 		isValidArr(args,size);
 		ArrayList<Dog> dogs = new ArrayList<Dog>();	
 		obj.setValue(dogs, new Dog(args[0]));
@@ -79,7 +79,7 @@ public class TestBArrayList {
 	private void mod5(String[] args) throws CustomException
 	{
 		ArrayList<?> arrayList = new ArrayList<>();
-		int size = 7;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		obj.setValue(arrayList, Integer.parseInt(args[0]));
 		obj.setValue(arrayList, Integer.parseInt(args[1]));
@@ -93,7 +93,7 @@ public class TestBArrayList {
 	private void mod6(String[] args) throws CustomException
 	{
 		ArrayList<?> arrayList = new ArrayList<>();
-		int size=4;
+		int size=scan.nextInt();
 		isValidArr(args,size);
 		obj.setValue(arrayList, args[0]);
 		obj.setValue(arrayList, args[1]);
@@ -108,7 +108,7 @@ public class TestBArrayList {
 	private void mod7(String[] args) throws CustomException
 	{
 		ArrayList<String> arrayList = new ArrayList<String>();
-		int size=5;
+		int size=scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -122,7 +122,7 @@ public class TestBArrayList {
 	}
 	private void mod8(String[] args) throws CustomException
 	{
-		int size =2;
+		int size =scan.nextInt();
 		ArrayList<?> arrayList = new ArrayList<>();
 		isValidArr(args,size);
 		obj.setValue(arrayList, args[0]);
@@ -137,7 +137,7 @@ public class TestBArrayList {
 	private void mod9(String[] args) throws CustomException
 	{
 		ArrayList<String> arrayList = new ArrayList<String>();
-		int size = 5;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -154,7 +154,7 @@ public class TestBArrayList {
 	private void mod10(String[] args) throws CustomException
 	{
 		ArrayList<String> arrayList = new ArrayList<String>();
-		int size = 5;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -171,7 +171,7 @@ public class TestBArrayList {
 	private void mod11(String[] args) throws CustomException
 	{
 		ArrayList<String> arrayList = new ArrayList<String>();
-		int size = 10;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -193,7 +193,9 @@ public class TestBArrayList {
 	private void mod12(String[] args) throws CustomException
 	{
 		ArrayList<String> arrayList1 = new ArrayList<String>();
-		int limit1 = 3,limit2=5,total=limit1+limit2;
+		int limit1 = scan.nextInt();
+		int limit2= scan.nextInt();
+		int total=limit1+limit2;
 		isValidArr(args,total);
 		for(int i=0;i< limit1;i++)
 		{
@@ -241,7 +243,7 @@ public class TestBArrayList {
 	private void mod14(String[] args) throws CustomException
 	{
 		ArrayList<Integer> arrayList = new ArrayList<Integer>();
-		int size = 5;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		boolean index = false;
 		for(int i=0;i<size;i++)
@@ -253,7 +255,6 @@ public class TestBArrayList {
 		index = scan.nextBoolean();
 		logger.log(Level.INFO,"Enter Number/index");
 		int number = scan.nextInt();
-		
 		if(index)
 		{
 			isValidInd(number,size);
@@ -268,7 +269,7 @@ public class TestBArrayList {
 	private void mod15(String[] args) throws CustomException
 	{
 		ArrayList<Long> arrayList = new ArrayList<Long>();
-		int size = 10;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -287,7 +288,9 @@ public class TestBArrayList {
 	{
 		ArrayList<String> arrayList1 = new ArrayList<String>();
 		ArrayList<String> arrayList2 = new ArrayList<String>();
-		int firstLen = 5,secondLen = 3,total=firstLen+secondLen;
+		int firstLen = scan.nextInt();
+		int secondLen = scan.nextInt();
+		int total=firstLen+secondLen;
 		isValidArr(args,total);
 		logger.log(Level.INFO,"Enter True/false if need to remove presented element or not");
 		boolean present = scan.nextBoolean();
@@ -307,7 +310,7 @@ public class TestBArrayList {
 	private void mod17(String[] args) throws CustomException
 	{
 		ArrayList<Long> arrayList = new ArrayList<Long>();
-		int size = 10;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{
@@ -320,7 +323,7 @@ public class TestBArrayList {
 	{
 		
 		ArrayList<String> arrayList = new ArrayList<String>();
-		int size = 5;
+		int size = scan.nextInt();
 		isValidArr(args,size);
 		for(int i=0;i<size;i++)
 		{

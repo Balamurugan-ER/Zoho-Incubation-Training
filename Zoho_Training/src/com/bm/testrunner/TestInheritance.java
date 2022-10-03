@@ -54,6 +54,7 @@ public class TestInheritance
 		scrossObj.setEngineNumber(engineNumber);
 		scrossObj.setModel(model);
 		scrossObj.setSeats(noOfSeats);
+		scrossObj.setYearOfMake(year);
 		if(carType == 1)
 		{
 			scrossObj.setType(Car.Type.HATCHBACK);
@@ -64,7 +65,7 @@ public class TestInheritance
 		}
 		else
 		{
-			scrossObj.setType(Car.Type.SEDAN);
+			scrossObj.setType(Car.Type.SUV);
 		}		
 		scrossObj.setYearOfMake(2000);
 		logger.log(Level.INFO,"Model Name : "+scrossObj.getModel()+"\n"
@@ -92,14 +93,14 @@ public class TestInheritance
 		logger.log(Level.INFO,"Scross Obj Invoking CarsWelcome()");
 		TestInheritance.carsWelcome(scrossObj);
 	}
-	private static void UpdatedCarsWelcome(Car car)
+	private static void updatedCarsWelcome(Car car)
 	{
 		Swift swiftObj = new Swift();
 		XUV xuvObj = new XUV();
 		Scross scrossObj = new Scross();
-		//		swiftObj = (Swift)car;
-		//		xuvObj = (XUV)car;
-		//		scrossObj = (Scross)car;
+				swiftObj = (Swift)car;
+				xuvObj = (XUV)car;
+				scrossObj = (Scross)car;
 		if(car.getClass() == swiftObj.getClass())
 		{
 			logger.log(Level.INFO,"Welcome Hatch ");
@@ -117,26 +118,26 @@ public class TestInheritance
 	private void testMod4()
 	{
 		Swift swiftObj = new Swift();
-		TestInheritance.UpdatedCarsWelcome(swiftObj);
+		TestInheritance.updatedCarsWelcome(swiftObj);
 		XUV xuvObj = new XUV();
-		TestInheritance.UpdatedCarsWelcome(xuvObj);
+		TestInheritance.updatedCarsWelcome(xuvObj);
 		Scross scrossObj = new Scross();
-		TestInheritance.UpdatedCarsWelcome(scrossObj);
+		TestInheritance.updatedCarsWelcome(scrossObj);
 	}
-	private static void SwiftWelcome(Swift swiftObj) 
+	private static void swiftWelcome(Swift swiftObj) 
 	{
 		logger.log(Level.INFO,"Welcome Swift");
 	}
 	private void testMod5()
 	{
 		Swift swiftObj = new Swift();
-		TestInheritance.SwiftWelcome(swiftObj);
+		TestInheritance.swiftWelcome(swiftObj);
 		Car carObj = new Car();
-		//TestRunnerCars.SwiftWelcome(carObj);
+//		TestInheritance.swiftWelcome(carObj);
 		XUV xuvObj = new XUV();
-		//TestRunnerCars.SwiftWelcome(xuvObj);
+//		TestInheritance.swiftWelcome(xuvObj);
 		Scross scrossObj = new Scross();
-		//TestRunnerCars.SwiftWelcome(scrossObj);
+//		TestInheritance.swiftWelcome(scrossObj);
 	}
 	private void testMod6() 
 	{
@@ -171,15 +172,15 @@ public class TestInheritance
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TestInheritance obj = new TestInheritance();
-		obj.testMod1();
-		obj.testMod2();
-		obj.testMod3();
-		obj.testMod4();
-		obj.testMod5();
-		obj.testMod6();
-		obj.testMod7();
-		obj.testMod8();
-		obj.testMod9();
+		//obj.testMod1();
+//		obj.testMod2();
+//		obj.testMod3();
+//		obj.testMod4();
+//		obj.testMod5();
+//		obj.testMod6();
+//		obj.testMod7();
+//		obj.testMod8();
+//		obj.testMod9();
 	}
 }
 

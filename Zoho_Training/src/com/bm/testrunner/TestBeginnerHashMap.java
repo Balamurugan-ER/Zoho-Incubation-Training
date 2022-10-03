@@ -37,7 +37,7 @@ public class TestBeginnerHashMap {
 	private void mod2() throws CustomException
 	{
 		HashMap<String,String> map = new HashMap<String,String>();
-		int n=3;
+		int n= scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter String Key & Value: ");
@@ -50,7 +50,7 @@ public class TestBeginnerHashMap {
 	private void mod3() throws CustomException
 	{
 		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-		int n=3;
+		int n=scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter Integer Key & Integer Value: ");
@@ -63,7 +63,7 @@ public class TestBeginnerHashMap {
 	private void mod4() throws CustomException
 	{
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
-		int n=3;
+		int n=scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter String Key & Integer Value: ");
@@ -76,7 +76,7 @@ public class TestBeginnerHashMap {
 	private void mod5() throws CustomException
 	{
 		HashMap<String,Remote> map = new HashMap<String,Remote>();
-		int n=3;
+		int n=scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter String Key : ");
@@ -90,7 +90,7 @@ public class TestBeginnerHashMap {
 	private void mod6() throws CustomException
 	{
 		HashMap<String,String> map = new HashMap<String,String>();
-		int n=2;
+		int n=scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter String Key   : ");
@@ -105,7 +105,7 @@ public class TestBeginnerHashMap {
 	private void mod7() throws CustomException
 	{
 		HashMap<String,String> map = new HashMap<String,String>();
-		int n=2;
+		int n=scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter String Key   : ");
@@ -131,7 +131,7 @@ public class TestBeginnerHashMap {
 	{
 		getDefaultHmap();
 		printMap(defaultHmap);
-		int n=3;
+		int n=scan.nextInt();
 		for(int i=0;i<n;i++)
 		{
 			logger.log(Level.INFO,"Enter value for key and updated Value: ");

@@ -6,81 +6,76 @@ import com.bm.util.*;
 
 import java.util.Objects;
 /**
- * @author inc5
+ * @author Balamurugan
  *
  */
-public class BstringBuilder {
+public class BstringBuilder 
+{
 
-
-	public void checkNull(Object sbString) throws CustomException
-	{	
-		try
-		{
-			Objects.requireNonNull(sbString, "Value should not be null");
-		}
-		catch(NullPointerException e)
-		{
-			throw new CustomException("Null Value Found");
-		}
-
-	}
-
+	// returns length of the stringBuilder
 	public int getsbLength(StringBuilder sbString) throws CustomException
 	{
-		checkNull(sbString);
+		Utilities.VALID.isNull(sbString);
 		return sbString.length();
 	}
-
+	// returns an empty string builder
 	public StringBuilder createSBuilder()
 	{
 		return new StringBuilder();
 	}
+	// returns an stringbuilder by calling custom constructor string.
 	public StringBuilder createSBuilder(String string) throws CustomException
 	{
-		checkNull(string);
+		Utilities.VALID.isNull(string);
 		return new StringBuilder(string);
 	}
+	// returns the capacity of the stringbuilder
 	public int getCapacity(StringBuilder sbString) throws CustomException
 	{
-		checkNull(sbString);
+		Utilities.VALID.isNull(sbString);
 		return sbString.capacity();
 	}
+	// returns the StringBuilder by adding new String to it.
 	public StringBuilder addString(StringBuilder sbString,String newString) throws CustomException
 	{	
-		checkNull(sbString);
-		checkNull(newString);
+		Utilities.VALID.isNull(sbString);
 		return sbString.append(newString);
 	}
+	// returns the String builder by adding string at given index.
 	public StringBuilder addString(StringBuilder sbString,int index,String string) throws CustomException
 	{
-		checkNull(string);
+		Utilities.VALID.isNull(string);
 		Utilities.VALID.isNumValidRange(index, 0, getsbLength(sbString)); //TODO: index maximum range
 		return sbString.insert(index, string);
 	}
+	// returns the first index or last index of given char in a stringBuilder.
 	public int findDelimiter(StringBuilder sbString,char delimiter,boolean first) throws CustomException
 	{
-		checkNull(sbString);
+		Utilities.VALID.isNull(sbString);
 		if(first)
 		{
 			return sbString.toString().indexOf(delimiter);
 		}
 		return sbString.toString().lastIndexOf(delimiter);
 	}
+	// deletes the range of chars in given StringBuilder.
 	public void deleteRange(StringBuilder sbString,int start,int end) throws CustomException
 	{
 		int length = getsbLength(sbString);
 		Utilities.VALID.isNumValidRange(start, 0, length);
 		sbString.delete(start, end);
 	}
+	// returns the String array by spliting the StringBuilder with given delimiter.
 	public String[] sbStrToArray(StringBuilder sbString,String delimiter) throws CustomException
 	{
-		checkNull(sbString);
+		Utilities.VALID.isNull(sbString);
 		String string = Objects.toString(sbString);
 		return string.split(delimiter);
 	}
+	// returns the StringBuilder by appending delimiter at each white space.
 	public StringBuilder sbConcat(StringBuilder sbString,String delimiter) throws CustomException
 	{
-		checkNull(sbString);
+		Utilities.VALID.isNull(sbString);
 		String[] array = sbStrToArray(sbString," ");
 		
 		StringBuilder concateString = createSBuilder();
@@ -95,22 +90,20 @@ public class BstringBuilder {
 		}
 		return sbString=concateString;
 	}
-	//TODO debug unfinished
+	// returns the StringBuilder by replacing the String at the specified start and end index.
 	public StringBuilder sbReplace(StringBuilder sbString,int start,int end,String subString) throws CustomException
 	{
-		checkNull(subString);
+		Utilities.VALID.isNull(subString);
 		int length = getsbLength(sbString);
 		Utilities.VALID.isNumValidRange(start, 0, length);
 		return sbString.replace(start, end, subString);
 	}
+	// returns reversed StringBuilder
 	public StringBuilder sbReverse(StringBuilder sbString) throws CustomException
 	{
-		checkNull(sbString);
+		Utilities.VALID.isNull(sbString);
 		return sbString.reverse();
 	}
-
-
-
 }
 
 

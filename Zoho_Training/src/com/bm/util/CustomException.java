@@ -4,7 +4,7 @@
 package com.bm.util;
 
 /**
- * @author inc5
+ * @author Balamurugan
  *
  */
 public class CustomException extends Exception {
