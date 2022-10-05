@@ -304,7 +304,7 @@ public class TestBeginnerString {
 				} 
 				case 1000:
 				{
-					Utilities.VALID.check("com.bm.framework.String.BeginnerString");
+					Utilities.INST.check("com.bm.framework.String.BeginnerString");
 					break;
 				}
 				}		

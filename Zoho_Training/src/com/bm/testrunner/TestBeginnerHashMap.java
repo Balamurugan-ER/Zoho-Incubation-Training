@@ -334,7 +334,7 @@ public class TestBeginnerHashMap {
 				}
 				case 1000:
 				{
-					Utilities.VALID.check("com.bm.framework.hashmap.BeginnerHashMap");
+					Utilities.INST.check("com.bm.framework.hashmap.BeginnerHashMap");
 					break;
 				}
 				}
@@ -349,6 +349,10 @@ public class TestBeginnerHashMap {
 		{
 			logger.log(Level.SEVERE,"Invalid Input");
 			e.printStackTrace();
+		}
+		finally
+		{
+			scan.close();
 		}
 	}
 

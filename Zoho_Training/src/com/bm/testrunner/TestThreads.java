@@ -12,20 +12,9 @@ public class TestThreads
 	private static Logger logger = Logger.getLogger(TestThreads.class.getName());
 	private static void toggleThread(ExtendedThread thread)
 	{
-		try
-		{
-			logger.log(Level.INFO,"Sleeping ..M "+thread.getName());
-			thread.sleep(30000);
-		} catch (InterruptedException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally
-		{
-			thread.setFlag(false);
-			thread.displayThreadInfo(thread);
-		}
+		logger.log(Level.INFO,"Sleeping ..M "+thread.getName());
+		thread.setFlag(false);
+		thread.displayThreadInfo(thread);
 	}
 	public static void main(String [] args)
 	{
@@ -55,7 +44,6 @@ public class TestThreads
 				threadOne.displayThreadInfo(threadOne);
 				threadOne.start();
 				threadOne.displayThreadInfo(threadOne);
-				threadOne.stop();
 				threadOne.displayThreadInfo(threadOne);
 				break;
 			}
@@ -68,7 +56,6 @@ public class TestThreads
 				threadRun.displayThreadInfo(threadRun);
 				threadRun.start();
 				threadRun.displayThreadInfo(threadRun);
-				threadRun.stop();
 				threadRun.displayThreadInfo(threadRun);
 				break;
 			}
@@ -134,7 +121,16 @@ public class TestThreads
 				logger.log(Level.INFO,threadRun.getName()+" Started at Main..");
 				threadExt.start();
 				threadRun.start();
+				try 
+				{
+					Thread.sleep(3000);
+				} 
+				catch (InterruptedException e) 
+				{
+					logger.log(Level.SEVERE, "{0}",e.getMessage());
+				}
 				toggleThread(threadExt);
+				
 				toggleThread(threadRun);
 				break;
 			}

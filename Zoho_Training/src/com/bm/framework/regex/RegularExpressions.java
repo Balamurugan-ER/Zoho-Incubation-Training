@@ -21,7 +21,7 @@ public class RegularExpressions
 	// Mobile Number Validator
 	public static boolean mobileNumberValidator(String phNumber) throws CustomException
 	{
-		Utilities.VALID.isNull(phNumber);
+		Utilities.INST.isNull(phNumber);
 		String mobilePattern = "^[7-9][0-9]{9}";
 		return Pattern.matches(mobilePattern, phNumber);
 	}
@@ -29,37 +29,37 @@ public class RegularExpressions
 	// Not Completed
 	public static boolean alphaNumericValidator(String alphaNumericChars) throws CustomException
 	{
-		Utilities.VALID.isNull(alphaNumericChars);
+		Utilities.INST.isNull(alphaNumericChars);
 		String alphaNumPattern = "[a-zA-Z0-9]*";
 		return Pattern.matches(alphaNumPattern, alphaNumericChars);
 	}
 	public static boolean stringStarts(String givenString,String matchString) throws CustomException
 	{
-		Utilities.VALID.isNull(givenString);
+		Utilities.INST.isNull(givenString);
 		String startsWith = "^"+matchString+".+$";
 		return Pattern.matches(startsWith, givenString);
 	}
 	public static boolean stringContains(String givenString,String matchString) throws CustomException
 	{
-		Utilities.VALID.isNull(givenString);
+		Utilities.INST.isNull(givenString);
 		String contains = "^.+"+matchString+".+$";
 		return Pattern.matches(contains, givenString);
 	}
 	public static boolean stringEndsWith(String givenString,String matchString) throws CustomException
 	{
-		Utilities.VALID.isNull(givenString);
+		Utilities.INST.isNull(givenString);
 		String endsWith = "^.+"+matchString+"$";
 		return Pattern.matches(endsWith, givenString);
 	}
 	public static boolean stringExactMatch(String givenString,String matchString) throws CustomException
 	{
-		Utilities.VALID.isNull(givenString);
+		Utilities.INST.isNull(givenString);
 		String endsWith = matchString;
 		return Pattern.matches(endsWith, givenString);
 	}
 	public static Matcher stringExactMatch(String givenString,String matchString,int flag) throws CustomException
 	{
-		Utilities.VALID.isNull(givenString);
+		Utilities.INST.isNull(givenString);
 		String endsWith = matchString;
 		Pattern pattern = Pattern.compile(endsWith, flag);
 		//Matcher matcher = pattern.matcher(givenString);
@@ -68,19 +68,19 @@ public class RegularExpressions
 	//email validator
 	public static boolean emailValidator(String email) throws CustomException
 	{
-		Utilities.VALID.isNull(email);
+		Utilities.INST.isNull(email);
 		String emailPattern = "^[a-zA-Z0-9]*@{1}[a-zA-Z0-9]*\\.{1}[a-zA-Z0-9]*";
 		return Pattern.matches(emailPattern, email);
 	}
 	public static boolean stringCountRange(String givenString,int range) throws CustomException
 	{
-		Utilities.VALID.isNull(givenString);
+		Utilities.INST.isNull(givenString);
 		String mobilePattern = ".{1,"+range+"}";
 		return Pattern.matches(mobilePattern,givenString);
 	}
 	public static Matcher tagfinder(String htmlLines) throws CustomException
 	{
-		Utilities.VALID.isNull(htmlLines);
+		Utilities.INST.isNull(htmlLines);
 		String tagPattern = "</*[a-zA-Z0-9]*>";
 		Pattern pattern = Pattern.compile(tagPattern);
 		Matcher matcher = pattern.matcher(htmlLines);

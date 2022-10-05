@@ -202,7 +202,7 @@ public class TestBstringBuilder {
 				}
 				case 1000:
 				{
-					Utilities.VALID.check("com.bm.framework.stringbuilder.BstringBuilder");
+					Utilities.INST.check("com.bm.framework.stringbuilder.BstringBuilder");
 					break;
 				}
 				}

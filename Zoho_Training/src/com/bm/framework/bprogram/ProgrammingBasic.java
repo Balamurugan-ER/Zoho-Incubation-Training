@@ -60,8 +60,7 @@ public class ProgrammingBasic
 	}
 	public static long getTimeMilliSeconds()
 	{
-		Date date = new Date();
-		date.getTime();
+		// ref Instance.now()
 		return System.currentTimeMillis();
 	}
 	public static ZonedDateTime getDateTime(ZoneId zone)

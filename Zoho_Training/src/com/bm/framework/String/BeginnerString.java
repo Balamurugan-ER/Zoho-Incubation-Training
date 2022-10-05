@@ -13,7 +13,7 @@ public class BeginnerString
 {	
 	private void stringCheck(String string) throws CustomException
 	{
-		Utilities.VALID.isNull(string);
+		Utilities.INST.isNull(string);
 //		String obj = Objects.requireNonNull(string, "Value is Empty");
 		if(string.isEmpty())
 		{
@@ -24,7 +24,7 @@ public class BeginnerString
 	// arg - String	
 	public int getLength(String string) throws CustomException
 	{
-		Utilities.VALID.isNull(string);
+		Utilities.INST.isNull(string);
 		return string.length();		
 	}
 	// returns char array 	
@@ -43,7 +43,7 @@ public class BeginnerString
 	}
 	public char returnCharAt(String string,int index) throws CustomException
 	{
-		Utilities.VALID.isNumValidRange(index,0,getLength(string));
+		Utilities.INST.isNumValidRange(index,0,getLength(string));
 		return string.charAt(index);
 		
 	}
@@ -65,7 +65,7 @@ public class BeginnerString
 	public String getSubString(String string,int numOfChars,boolean start)  throws CustomException
 	{
 		int length = getLength(string);
-		Utilities.VALID.isNumValidRange(numOfChars,1,length);
+		Utilities.INST.isNumValidRange(numOfChars,1,length);
 		if(!start)
 		{	
 			return string.substring(length-numOfChars);
@@ -124,7 +124,7 @@ public class BeginnerString
 	//todo : concatenate all elements of the String Array to single String
 	public String concatenateArgs(String[] array)  throws CustomException
 	{	
-		Utilities.VALID.isNull(array);
+		Utilities.INST.isNull(array);
 		String concateString = "";
 		for(int i = 0;i< array.length;i++)
 		{
@@ -138,12 +138,12 @@ public class BeginnerString
 	public String[] strToArray(String string,String delimiter) throws CustomException
 	{	
 		stringCheck(string);
-		Utilities.VALID.isNull(delimiter);
+		Utilities.INST.isNull(delimiter);
 		return string.split(delimiter);
 	}
 	public String concatenateAddArgs(String[] array,char delimiter) throws CustomException
 	{	
-		Utilities.VALID.isNull(array);
+		Utilities.INST.isNull(array);
 		String concateString = "";
 		for(int i = 0;i< array.length;i++)
 		{

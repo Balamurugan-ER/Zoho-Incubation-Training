@@ -18,7 +18,7 @@ public class TestBArrayList {
 	static Logger logger = Logger.getLogger(TestBArrayList.class.getName());
 	private boolean isValidArr(String[] array,int expLength) throws CustomException
 	{
-		Utilities.VALID.isNull(array);
+		Utilities.INST.isNull(array);
 		if(array.length < expLength)
 		{
 			throw new CustomException("Given Arguments are not Enough to Process");
@@ -219,7 +219,9 @@ public class TestBArrayList {
 	private void mod13(String[] args) throws CustomException
 	{
 		ArrayList<String> arrayList1 = new ArrayList<String>();
-		int limit1 = 5,limit2=3,total=limit1+limit2;
+		int limit1 = scan.nextInt();
+		int limit2= scan.nextInt();
+		int total=limit1+limit2;
 		isValidArr(args,total);
 		for(int i=0;i< limit1;i++)
 		{
@@ -466,7 +468,7 @@ public class TestBArrayList {
 				}
 				case 1000:
 				{
-					Utilities.VALID.check("com.bm.framework.arraylist.BArrayList");
+					Utilities.INST.check("com.bm.framework.arraylist.BArrayList");
 					break;
 				}
 				}
@@ -489,6 +491,10 @@ public class TestBArrayList {
 		{
 			logger.log(Level.SEVERE,"String Argument Found Instead of Number");
 			e.printStackTrace();
+		}
+		finally
+		{
+			scan.close();
 		}
 	}
 

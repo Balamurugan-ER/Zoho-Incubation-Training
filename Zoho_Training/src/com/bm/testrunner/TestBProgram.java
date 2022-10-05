@@ -280,7 +280,7 @@ public class TestBProgram
 			case 1000:
 			{
 				logger.log(Level.WARNING,"Sanity checking in progress .....");
-				Utilities.VALID.check("com.bm.framework.bprogram.ProgrammingBasic");
+				Utilities.INST.check("com.bm.framework.bprogram.ProgrammingBasic");
 				break;
 			}
 			}

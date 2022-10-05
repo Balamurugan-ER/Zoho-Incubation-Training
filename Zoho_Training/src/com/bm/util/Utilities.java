@@ -6,7 +6,7 @@ import java.lang.reflect.Parameter;
 
 public enum Utilities 
 {
-	VALID;
+	INST;
 	public void isNull(Object obj) throws CustomException
 	{
 		if(obj == null)

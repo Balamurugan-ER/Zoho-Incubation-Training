@@ -10,7 +10,7 @@ public class Dog
 {
 	public Dog(String name) throws CustomException
 	{
-		Utilities.VALID.isNull(name);
+		Utilities.INST.isNull(name);
 		this.name = name;
 	}
 	private String name;
