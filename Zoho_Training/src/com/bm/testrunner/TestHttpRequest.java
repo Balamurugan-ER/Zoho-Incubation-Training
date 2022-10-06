@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 import org.json.JSONObject;
 
-import com.bm.framework.httprequest.AccountsInfo;
+import com.bm.framework.httprequest.ZohoApiRequest;
 
 /*
  * @author Balamurugan
@@ -20,7 +20,7 @@ public class TestHttpRequest
 	static Scanner scan = new Scanner(System.in);
 	public static void main(String[] args)
 	{
-		AccountsInfo accounts = new AccountsInfo();
+		ZohoApiRequest accounts = new ZohoApiRequest();
 		try
 		{
 			logger.log(Level.INFO,"Enter url");

@@ -21,7 +21,7 @@ import com.bm.util.CustomException;
  * @author Balamurugan
  *
  */
-public class AccountsInfo
+public class ZohoApiRequest
 {
 	
 	public JSONObject requestUrl(String url,String accessToken,String type) throws CustomException

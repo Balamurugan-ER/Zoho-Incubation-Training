@@ -19,7 +19,7 @@ public class TestBstringBuilder {
 	}
 	private void mod2(String string) throws CustomException
 	{
-		int n =4;
+		int n =scan.nextInt();
 		StringBuilder sbString = obj.createSBuilder(null);
 		logger.log(Level.INFO,"{0}",obj.getsbLength(sbString));
 		for(int i=0;i<n;i++)
