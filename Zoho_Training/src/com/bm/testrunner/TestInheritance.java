@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.bm.framework.inheritance.*;
-import com.bm.framework.inheritance.Car.Type;
 /**
  * @author Balamurugan
  *
@@ -132,11 +131,11 @@ public class TestInheritance
 	{
 		Swift swiftObj = new Swift();
 		TestInheritance.swiftWelcome(swiftObj);
-		Car carObj = new Car();
+//		Car carObj = new Car();
 //		TestInheritance.swiftWelcome(carObj);
-		XUV xuvObj = new XUV();
+//		XUV xuvObj = new XUV();
 //		TestInheritance.swiftWelcome(xuvObj);
-		Scross scrossObj = new Scross();
+//		Scross scrossObj = new Scross();
 //		TestInheritance.swiftWelcome(scrossObj);
 	}
 	private void testMod6() 
@@ -172,15 +171,15 @@ public class TestInheritance
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TestInheritance obj = new TestInheritance();
-		//obj.testMod1();
-//		obj.testMod2();
-//		obj.testMod3();
-//		obj.testMod4();
-//		obj.testMod5();
-//		obj.testMod6();
-//		obj.testMod7();
-//		obj.testMod8();
-//		obj.testMod9();
+		obj.testMod1();
+		obj.testMod2();
+		obj.testMod3();
+		obj.testMod4();
+		obj.testMod5();
+		obj.testMod6();
+		obj.testMod7();
+		obj.testMod8();
+		obj.testMod9();
 	}
 }
 

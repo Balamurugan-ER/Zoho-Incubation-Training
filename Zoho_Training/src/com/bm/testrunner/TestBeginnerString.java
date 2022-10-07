@@ -103,7 +103,7 @@ public class TestBeginnerString {
 
 		TestBeginnerString test = new TestBeginnerString();
 		Scanner scan = new Scanner(System.in);
-		String choice = null;
+		int choice = -1;
 		boolean flag = true;
 		try
 		{
@@ -130,12 +130,12 @@ public class TestBeginnerString {
 			while(flag)
 			{
 				logger.log(Level.INFO,"Enter your choice (1-16)");
-				int n = scan.nextInt();
-				if(n < 0 && n > 16)
+				choice = scan.nextInt();
+				if(choice < 0 && choice > 16)
 				{
 					throw new CustomException("Invalid Choice Range");
 				}
-				switch (n)
+				switch (choice)
 				{
 				case 1:
 				{
@@ -319,6 +319,10 @@ public class TestBeginnerString {
 		catch(InputMismatchException e)
 		{
 			logger.log(Level.SEVERE," Invalid input ! \n kindly check and run!!");
+		}
+		finally
+		{
+			scan.close();
 		}
 
 	}

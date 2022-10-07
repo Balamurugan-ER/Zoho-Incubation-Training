@@ -6,8 +6,6 @@ package com.bm.testrunner;
 import java.util.Scanner;
 import java.util.logging.Level;
 
-import org.json.JSONObject;
-
 import com.bm.framework.json.PlayWithJson;
 /**
  * @author Balamurugan

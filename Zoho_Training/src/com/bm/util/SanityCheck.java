@@ -3,12 +3,9 @@
  */
 package com.bm.util;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,12 +16,12 @@ import java.util.logging.Logger;
 public class SanityCheck
 {
 	Logger logger = Logger.getLogger(SanityCheck.class.getName());
-	public void check(Class classname) throws CustomException
+	public void check(Class<?> classname) throws CustomException
 	{		
 		int passedCount=0,failedCount=0;
 		try 
 		{
-			Class classObject = Class.forName("com.bm.framework.String.BeginnerString");
+			Class<?> classObject = Class.forName("com.bm.framework.String.BeginnerString");
 			Object obj = classObject.newInstance();
 			Method[] methodObject = classObject.getDeclaredMethods();
 			

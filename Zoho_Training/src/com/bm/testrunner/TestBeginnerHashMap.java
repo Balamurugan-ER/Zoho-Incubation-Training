@@ -22,7 +22,7 @@ public class TestBeginnerHashMap {
 		logger.log(Level.INFO,"{0}",begin.getMapSize(map));
 	}
 
-	private HashMap getDefaultHmap() throws CustomException
+	private HashMap<?,?> getDefaultHmap() throws CustomException
 	{
 		begin.addEntry(defaultHmap,"Tamil", "A");
 		begin.addEntry(defaultHmap,"English", "B");
@@ -31,7 +31,7 @@ public class TestBeginnerHashMap {
 	}
 	private void mod1() throws CustomException
 	{
-		HashMap map = new HashMap();
+		HashMap<?,?> map = new HashMap<>();
 		printMap(map);
 	}
 	private void mod2() throws CustomException

@@ -6,8 +6,6 @@ package com.bm.framework.regex;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.bm.util.*;
@@ -17,7 +15,6 @@ import com.bm.util.*;
  */
 public class RegularExpressions 
 {
-	private static Logger logger = Logger.getLogger(RegularExpressions.class.getName());
 	// Mobile Number Validator
 	public static boolean mobileNumberValidator(String phNumber) throws CustomException
 	{

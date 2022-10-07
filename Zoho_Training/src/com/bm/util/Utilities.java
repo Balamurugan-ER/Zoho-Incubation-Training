@@ -27,7 +27,7 @@ public enum Utilities
 		try 
 		{
 //			Class classObject = Class.forName("com.bm.framework.String.BeginnerString");
-			Class classObject = Class.forName(className);
+			Class<?> classObject = Class.forName(className);
 			Object obj = classObject.newInstance();
 			Method[] methodObject = classObject.getDeclaredMethods();
 
@@ -40,9 +40,6 @@ public enum Utilities
 				System.out.println(methodIterator.getName());
 				for(Parameter param : parameter)
 				{
-					String classObj=param.getType().toString();
-					String classTypeObj=param.getParameterizedType().toString();
-
 					if(param.getType().isPrimitive())
 					{
 						if(param.getType().toString().equals("boolean"))

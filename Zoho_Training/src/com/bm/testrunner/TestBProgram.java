@@ -6,7 +6,6 @@ import com.bm.util.Utilities;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.time.DayOfWeek;
@@ -160,7 +159,7 @@ public class TestBProgram
 				// reflection a custom constructor
 				try
 				{
-					Class refClass = Class.forName("programming.Fruits");
+					Class<?> refClass = Class.forName("programming.Fruits");
 					Fruits t = (Fruits) refClass.newInstance();
 					Constructor<?> construct = refClass.getDeclaredConstructor(String.class,Integer.class);
 					logger.log(Level.INFO,"Enter fruit name :- ");
