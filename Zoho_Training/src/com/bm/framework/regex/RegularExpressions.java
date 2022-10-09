@@ -66,7 +66,7 @@ public class RegularExpressions
 	public static boolean emailValidator(String email) throws CustomException
 	{
 		Utilities.INST.isNull(email);
-		String emailPattern = "^[a-zA-Z0-9]*@{1}[a-zA-Z0-9]*\\.{1}[a-zA-Z0-9]*";
+		String emailPattern = "^[a-zA-Z0-9]*@{1}[a-zA-Z0-9]*[\\.][\\.a-zA-Z0-9]+";
 		return Pattern.matches(emailPattern, email);
 	}
 	public static boolean stringCountRange(String givenString,int range) throws CustomException
