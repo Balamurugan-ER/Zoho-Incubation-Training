@@ -10,7 +10,8 @@ public class BasicColors {
 		YELLOW(6),
 		BLACK(7);
 	    private int colorCode;
-	    private Color(int i) {
+	    private Color(int i) 
+	    {
 	        this.colorCode = i;
 	    }
 	    public static Color getElement(int code)

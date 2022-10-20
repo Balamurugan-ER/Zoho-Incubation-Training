@@ -6,9 +6,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/home/inc5/mysql-connector-java-8.0.30.jar"/>
-	<classpathentry kind="lib" path="/home/inc5/json-20140107.jar"/>
-	<classpathentry kind="lib" path="/home/inc5/junit-4.13.2.jar"/>
+	<classpathentry kind="lib" path="/home/inc5/java/mysql-connector-java-8.0.30.jar"/>
+	<classpathentry kind="lib" path="/home/inc5/java/json-20140107.jar"/>
+	<classpathentry kind="lib" path="/home/inc5/java/junit-4.13.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
